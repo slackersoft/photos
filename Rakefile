@@ -20,3 +20,4 @@ task :cruise do
   end
 end
 
+task :default => [:spec, 'jasmine:ci']
