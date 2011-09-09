@@ -16,6 +16,7 @@ gem "heroku"
 gem "mysql2", "0.3.7"
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
+gem "paperclip"
 
 group :development, :test do
   gem 'rspec-rails', '2.6.1'
