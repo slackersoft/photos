@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rake', '0.8.7'
-gem 'rails', '3.1.0'
+gem 'rake'
+gem 'rails', '3.1.3'
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'uglifier'
@@ -12,7 +12,6 @@ gem 'jquery-rails'
 gem "bundler"
 gem "auto_tagger", "0.2.2"
 gem "json", "1.4.6"
-gem "heroku"
 gem "mysql2", "0.3.7"
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
