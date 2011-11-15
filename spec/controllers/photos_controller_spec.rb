@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe PhotosController do
   describe "#index" do
-    let!(:photo1) { Photo.create!(name: "foo", image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png"))) }
-    let!(:photo2) { Photo.create!(name: "bar", image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png"))) }
+    let!(:photo1) { Photo.create!(:name => "foo", :image => File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png"))) }
+    let!(:photo2) { Photo.create!(:name => "bar", :image => File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png"))) }
 
     it "should show all of the existing photos in order" do
       get :index
