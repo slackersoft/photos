@@ -189,6 +189,7 @@ PLATFORMS
 DEPENDENCIES
   auto_tagger (= 0.2.2)
   bundler
+  capistrano
   capybara (= 0.4.0)
   cucumber-rails (= 0.3.2)
   haml (>= 3.0.0)

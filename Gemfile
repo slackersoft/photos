@@ -17,6 +17,8 @@ gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "paperclip"
 
+gem "capistrano"
+
 group :development, :test do
   gem 'rspec-rails', '2.6.1'
   gem 'jasmine', '1.1.0.rc4'
