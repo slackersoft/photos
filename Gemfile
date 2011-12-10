@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.1.3'
+gem 'rails', '3.0.11'
+gem 'rack', '1.2.1'
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
   gem 'therubyracer'
   gem 'uglifier'
 end
