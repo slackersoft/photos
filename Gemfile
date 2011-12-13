@@ -1,9 +1,10 @@
 source 'http://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.0.11'
-gem 'rack', '1.2.1'
+gem 'rails', '3.1.3'
+
 group :assets do
+  gem 'sass-rails'
   gem 'therubyracer'
   gem 'uglifier'
 end
@@ -17,8 +18,7 @@ gem "mysql2", "0.3.7"
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "paperclip"
-
-gem "capistrano"
+gem 'heroku'
 
 group :development, :test do
   gem 'rspec-rails', '2.6.1'
