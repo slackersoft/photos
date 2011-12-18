@@ -30,7 +30,7 @@ group :development, :test do
 end
 
 group :development do
-  
+  gem "heroku_san"
 end
 
 group :test do
