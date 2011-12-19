@@ -20,6 +20,7 @@ gem "haml-rails"
 gem "paperclip"
 gem 'heroku'
 gem 'newrelic_rpm'
+gem 'aws-s3'
 
 group :development, :test do
   gem 'rspec-rails', '2.6.1'
