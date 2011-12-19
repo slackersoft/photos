@@ -9,7 +9,7 @@
 #
 production:
   app: gnj-photos
-  stack: bamboo-ree-1.8.7
+  stack: cedar
   config:
     BUNDLE_WITHOUT: "development:test"
 
