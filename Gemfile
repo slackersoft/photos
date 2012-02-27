@@ -21,6 +21,7 @@ gem "paperclip"
 gem 'heroku'
 gem 'newrelic_rpm'
 gem 'aws-s3'
+gem 'mail'
 
 group :development, :test do
   gem 'rspec-rails', '2.6.1'
@@ -29,6 +30,7 @@ group :development, :test do
 
   gem 'cucumber-rails'
   gem 'database_cleaner'
+  gem 'jshint'
 end
 
 group :development do
