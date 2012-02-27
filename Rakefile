@@ -8,7 +8,6 @@ Photos::Application.load_tasks
 
 task :cruise do
   sh 'rake spec'
-  # headless is your friend on linux - http://www.aentos.com/blog/easy-setup-your-cucumber-scenarios-using-headless-gem-run-selenium-your-ci-server
   Headless.ly(:display => 42) do |headless|
     begin
       sh 'rake jasmine:ci'

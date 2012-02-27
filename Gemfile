@@ -28,8 +28,6 @@ group :development, :test do
   gem 'jasmine', '1.1.0.rc4'
   gem "headless", "0.1.0"
 
-  gem 'cucumber-rails'
-  gem 'database_cleaner'
   gem 'jshint'
 end
 
