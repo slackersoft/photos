@@ -22,6 +22,7 @@ gem 'heroku'
 gem 'newrelic_rpm'
 gem 'aws-s3'
 gem 'mail'
+gem 'delayed_job'
 
 group :development, :test do
   gem 'rspec-rails', '2.6.1'
