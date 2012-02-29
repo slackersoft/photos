@@ -2,38 +2,67 @@ require 'spec_helper'
 
 describe MailChecker do
   describe ".check_for_mail" do
-    before do
-      Mail.stub(:all).and_return(emails)
-    end
+    subject { lambda { MailChecker.check_for_mail } }
+
+    before { Mail::TestRetriever.emails = emails }
 
     context "when there are messages" do
-      let(:emails) { [double(Mail), double(Mail)] }
-      
-      it "should enqueue a job for each message" do
-        Delayed::Job.should_receive(:enqueue).with(anything).twice
-
-        MailChecker.check_for_mail
+      let(:sender_email) { 'gregg@greggandjen.com' }
+      let(:email_subject) { '' }
+      let(:emails) do
+        m = Mail.new({
+          from: sender_email,
+          subject: email_subject,
+          to: 'photos@greggandjen.com'
+        })
+        to_attach.each { |name, value| m.attachments[name] = File.read(Rails.root.join(value)) }
+        [m]
       end
 
-      context "when there are no heroku background workers" do
-        before do
-          Heroku.stub(:workers).and_return(0)
-        end
+      context "when the mail has no attachments" do
+        let(:to_attach) { { } }
 
-        it "should add a worker" do
-          pending
-          MailChecker.check_for_mail
-        end
+        it { should_not change { Photo.count } }
       end
 
-      context "when there is at least one heroku background worker" do
-        before do
-          Heroku.stub(:workers).and_return(2)
+      context "when the mail has only non-image attachments" do
+        let(:to_attach) { { "foo.txt" => "/dev/null" } }
+
+        it { should_not change { Photo.count } }
+      end
+
+      context "when the mail has an image attachment" do
+        let(:to_attach) { { "foo.png" => "spec/fixtures/files/mushroom.png" } }
+
+        context "when the message is not from an allowed sender" do
+          let(:sender_email) { 'someone@gmail.com' }
+          it { should_not change { Photo.count } }
         end
 
-        it "should not add any workers" do
-          pending
-          MailChecker.check_for_mail
+        context "when the message is from an allowed sender" do
+          let(:sender_email) { 'gregg@greggandjen.com' }
+
+          it { should change { Photo.count }.by(1) }
+
+          context "when the email has a blank subject" do
+            let(:email_subject) { '' }
+
+            it "should use the name of the attachment file for the photo name" do
+              subject.call
+
+              Photo.last.name.should == 'foo.png'
+            end
+          end
+
+          context "when the email has a subject" do
+            let(:email_subject) { 'My Foo Thing' }
+
+            it "should use the subject and the photo name" do
+              subject.call
+
+              Photo.last.name.should == 'My Foo Thing'
+            end
+          end
         end
       end
     end
@@ -41,17 +70,7 @@ describe MailChecker do
     context "when there are no messages" do
       let(:emails) { [] }
 
-      it "should not enqueue any jobs" do
-        Delayed::Job.should_not_receive(:enqueue)
-
-        MailChecker.check_for_mail
-      end
-
-      it "should not check herokus background workers" do
-        Heroku.should_not_receive(:workers)
-        
-        MailChecker.check_for_mail
-      end
+      it { should_not change { Photo.count } }
     end
   end
 end
