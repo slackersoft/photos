@@ -5,6 +5,6 @@ Mail.defaults do
     retriever_method :imap,
       address: 'mail.greggandjen.com',
       user_name: 'photos@greggandjen.com',
-      password: "kv*wSc!E" # ENV['EMAIL_PASSWORD']
+      password: ENV['EMAIL_PASSWORD']
   end
 end
