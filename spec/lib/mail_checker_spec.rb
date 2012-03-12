@@ -4,7 +4,7 @@ describe MailChecker do
   describe ".check_for_mail" do
     subject { lambda { MailChecker.check_for_mail } }
 
-    before { Mail::TestRetriever.emails = emails }
+    before { Mail::TestRetriever.emails = emails.dup }
 
     context "when there are messages" do
       let(:sender_email) { 'gregg@greggandjen.com' }
@@ -23,12 +23,24 @@ describe MailChecker do
         let(:to_attach) { { } }
 
         it { should_not change { Photo.count } }
+
+        it "should delete the mail" do
+          subject.call
+
+          Mail::TestRetriever.emails.should be_empty
+        end
       end
 
       context "when the mail has only non-image attachments" do
         let(:to_attach) { { "foo.txt" => "/dev/null" } }
 
         it { should_not change { Photo.count } }
+
+        it "should delete the mail" do
+          subject.call
+
+          Mail::TestRetriever.emails.should be_empty
+        end
       end
 
       context "when the mail has an image attachment" do
@@ -37,6 +49,12 @@ describe MailChecker do
         context "when the message is not from an allowed sender" do
           let(:sender_email) { 'someone@gmail.com' }
           it { should_not change { Photo.count } }
+
+          it "should delete the mail" do
+            subject.call
+
+            Mail::TestRetriever.emails.should be_empty
+          end
         end
 
         context "when the message is from an allowed sender" do
@@ -62,6 +80,12 @@ describe MailChecker do
 
               Photo.last.name.should == 'My Foo Thing'
             end
+          end
+
+          it "should delete the mail" do
+            subject.call
+
+            Mail::TestRetriever.emails.should be_empty
           end
         end
       end
