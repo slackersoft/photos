@@ -58,34 +58,38 @@ describe MailChecker do
         end
 
         context "when the message is from an allowed sender" do
-          let(:sender_email) { 'gregg@greggandjen.com' }
+          %w(gregg@greggandjen.com jen@greggandjen.com).each do |approved_sender_email|
+            context "sender: #{approved_sender_email}" do
+              let(:sender_email) { approved_sender_email }
 
-          it { should change { Photo.count }.by(1) }
+              it { should change { Photo.count }.by(1) }
 
-          context "when the email has a blank subject" do
-            let(:email_subject) { '' }
+              context "when the email has a blank subject" do
+                let(:email_subject) { '' }
 
-            it "should use the name of the attachment file for the photo name" do
-              subject.call
+                it "should use the name of the attachment file for the photo name" do
+                  subject.call
 
-              Photo.last.name.should == 'foo.png'
+                  Photo.last.name.should == 'foo.png'
+                end
+              end
+
+              context "when the email has a subject" do
+                let(:email_subject) { 'My Foo Thing' }
+
+                it "should use the subject and the photo name" do
+                  subject.call
+
+                  Photo.last.name.should == 'My Foo Thing'
+                end
+              end
+
+              it "should delete the mail" do
+                subject.call
+
+                Mail::TestRetriever.emails.should be_empty
+              end
             end
-          end
-
-          context "when the email has a subject" do
-            let(:email_subject) { 'My Foo Thing' }
-
-            it "should use the subject and the photo name" do
-              subject.call
-
-              Photo.last.name.should == 'My Foo Thing'
-            end
-          end
-
-          it "should delete the mail" do
-            subject.call
-
-            Mail::TestRetriever.emails.should be_empty
           end
         end
       end

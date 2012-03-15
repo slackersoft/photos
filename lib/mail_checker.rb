@@ -1,7 +1,7 @@
 class MailChecker
   def self.check_for_mail
     Mail.all(delete_after_find: true).each do |mail|
-      if mail.from.first == 'gregg@greggandjen.com'
+      if %w(gregg@greggandjen.com jen@greggandjen.com).include? mail.from.first
         image_attachment = find_image_attachment(mail.attachments)
         if image_attachment.present?
           photo_name = mail.subject.blank? ? image_attachment.original_filename : mail.subject
