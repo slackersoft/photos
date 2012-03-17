@@ -1,23 +1,29 @@
-PAPERCLIP_STORAGE_OPTIONS = if Rails.env.production?
-   {
-    :storage => :s3,
-    :bucket => "gnj-photos-prod",
-    :s3_credentials => {
-      :access_key_id => ENV['S3_KEY'],
-      :secret_access_key => ENV['S3_SECRET']
-    }
-  }
+default_options = {
+  convert_options: { all: '-auto-orient' }
+}
+
+default_s3_options = {
+  storage: :s3,
+  s3_credentials: {
+    access_key_id: ENV['S3_KEY'],
+    secret_access_key: ENV['S3_SECRET']
+  },
+  s3_permissions: 'public-read',
+  s3_protocol: 'https'
+}
+
+env_options = if Rails.env.production?
+  default_s3_options.merge({
+    bucket: "gnj-photos-prod"
+  })
 #elsif Rails.env.development?
-#  {
-#    :storage => :s3,
-#    :bucket => "gnj-photos-dev",
-#    :s3_credentials => {
-#      :access_key_id => ENV['S3_KEY'],
-#      :secret_access_key => ENV['S3_SECRET']
-#    }
-#  }
+#  default_s3_options.merge({
+#    bucket: "gnj-photos-dev",
+#  })
 else
   {
-    :url => "/system/:attachment/:id/:style.:extension"
+    url: "/system/:attachment/:id/:style.:extension"
   }
 end
+
+PAPERCLIP_STORAGE_OPTIONS = default_options.merge(env_options)
