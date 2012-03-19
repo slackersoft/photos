@@ -22,6 +22,7 @@ gem 'rmagick'
 gem 'heroku'
 gem 'newrelic_rpm'
 gem 'aws-s3'
+gem 'aws-sdk'
 gem 'mail'
 
 group :development, :test do
