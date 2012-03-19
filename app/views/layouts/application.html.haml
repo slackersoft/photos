@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %title Photos
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    .header
+    .content
+      = yield
+    .footer
+      Copyright &copy; #{Time.now.year} Gregg and Jen Van Hove

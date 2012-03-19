@@ -74,6 +74,7 @@ GEM
       rails (>= 2)
     highline (1.6.8)
     hike (1.2.1)
+    hpricot (0.8.6)
     httparty (0.8.1)
       multi_json
       multi_xml
@@ -161,6 +162,8 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.6.0)
+    ruby_parser (2.3.1)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.5)
     sass (3.1.11)
     sass-rails (3.1.5)
@@ -173,6 +176,7 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
+    sexp_processor (3.1.0)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -205,6 +209,7 @@ DEPENDENCIES
   headless (= 0.1.0)
   heroku
   heroku_san
+  hpricot
   jasmine (= 1.1.0.rc4)
   jquery-rails
   jshint_on_rails
@@ -217,6 +222,7 @@ DEPENDENCIES
   rake
   rmagick
   rspec-rails (= 2.6.1)
+  ruby_parser
   sass-rails
   therubyracer
   uglifier

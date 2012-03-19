@@ -35,6 +35,8 @@ end
 
 group :development do
   gem "heroku_san"
+  gem "hpricot"
+  gem "ruby_parser"
 end
 
 group :test do
