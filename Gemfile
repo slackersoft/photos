@@ -18,6 +18,7 @@ gem "pg"
 gem "haml"
 gem "haml-rails"
 gem "paperclip"
+gem 'rmagick'
 gem 'heroku'
 gem 'newrelic_rpm'
 gem 'aws-s3'

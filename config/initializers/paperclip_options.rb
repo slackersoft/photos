@@ -1,5 +1,8 @@
 default_options = {
-  convert_options: { all: '-auto-orient' }
+  convert_options: { all: '-auto-orient' },
+  styles: {
+    original: ''
+  }
 }
 
 default_s3_options = {
@@ -26,4 +29,4 @@ else
   }
 end
 
-PAPERCLIP_STORAGE_OPTIONS = default_options.merge(env_options)
+PAPERCLIP_OPTIONS = default_options.merge(env_options)
