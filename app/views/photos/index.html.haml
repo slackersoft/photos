@@ -1,3 +1,6 @@
-- @photos.each do |photo|
-  .photo
-    =link_to photo.name, photo.image.url
+- if @photos.empty?
+  .no-photos No photos have been uploaded yet
+- else
+  - @photos.each do |photo|
+    .photo
+      =link_to photo.name, photo.image.url
