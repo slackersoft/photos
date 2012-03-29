@@ -7,7 +7,7 @@ body {
 .wrapper {
   background: white;
   margin: 0 auto;
-  width: 900px;
+  max-width: 1200px;
   @include rounded(7px);
   @include shadow(10px, 10px, 25px, 0px, gray)
 }
@@ -27,4 +27,13 @@ body {
 .content {
   min-height: 100px;
   padding: 15px;
+}
+
+.photo {
+  border: 1px solid #EFEFEF;
+  display: inline-block;
+  margin: 10px 5px;
+  width: 100px;
+  height: 100px;
+  @include shadow(5px, 5px, 10px, 0px, gray)
 }
