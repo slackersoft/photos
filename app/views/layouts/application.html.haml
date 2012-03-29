@@ -3,13 +3,16 @@
   %head
     %title Photos
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .wrapper
-      .header
+    .header
+      .wrapper
         Gregg and Jen's Photos
-      .content
+    .content
+      .wrapper
         = yield
-      .footer
-        Copyright &copy; #{Time.now.year} Gregg and Jen Van Hove
+    .footer
+      .wrapper
+        &copy; Copyright #{Time.now.year} Gregg and Jen Van Hove
+    .scripts
+      = javascript_include_tag "application"

@@ -9,3 +9,11 @@
   -webkit-box-shadow: $xOffset $yOffset $blur $spread $color;
   box-shadow: $xOffset $yOffset $blur $spread $color;
 }
+
+@mixin bg_gradient($orientation, $start, $stop) {
+  background-color: $stop;
+  background-image: -webkit-linear-gradient($orientation, $start, $stop);
+  background-image: -moz-linear-gradient($orientation, $start, $stop);
+  background-image: -ms-linear-gradient($orientation, $start, $stop);
+  background-image: -o-linear-gradient($orientation, $start, $stop);
+}
