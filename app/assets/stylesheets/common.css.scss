@@ -2,6 +2,7 @@
 
 body {
   background: #EEEEEE;
+  position: relative;
 }
 
 .wrapper {
@@ -28,11 +29,10 @@ body {
 
 .content {
   min-height: 100px;
-  padding: 15px;
+  padding: 15px 15px 100px;
 }
 
 .photo {
-  border: 1px solid #EFEFEF;
   display: inline-block;
   margin: 10px 5px;
   width: 100px;
