@@ -33,9 +33,15 @@ body {
 }
 
 .photo {
+  background: white;
   display: inline-block;
   margin: 10px 5px;
-  width: 100px;
-  height: 100px;
-  @include shadow(5px, 5px, 10px, 0px, gray)
+  max-width: 100px;
+  max-height: 100px;
+  @include shadow(5px, 5px, 10px, 0px, gray);
+  vertical-align: top;
+
+  img {
+    display: block;
+  }
 }
