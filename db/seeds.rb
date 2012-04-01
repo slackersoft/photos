@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Photo.create(name: 'Mushroom', image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png")))
+Photo.create(name: 'Mohawk', image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "mohawk.jpeg")))
+Photo.create(name: 'Sleeping', image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "sleeping.jpeg")))
