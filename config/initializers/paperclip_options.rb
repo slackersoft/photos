@@ -2,7 +2,8 @@ default_options = {
   convert_options: { all: '-auto-orient' },
   styles: {
     original: '',
-    thumb: '100x100>'
+    thumb: '100x100>',
+    large: '500x500>'
   }
 }
 

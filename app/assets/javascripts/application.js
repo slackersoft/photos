@@ -9,4 +9,9 @@
 //= require vendor/underscore
 //= require vendor/backbone
 //= require vendor/jquery.fancybox
-
+//= require photos_app
+//= require models/photo
+//= require collections/photos
+//= require views/photo
+//= require views/photo_list
+//= require router

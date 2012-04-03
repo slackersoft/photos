@@ -6,10 +6,9 @@ describe PhotosController do
     let!(:photo2) { Photo.create!(:name => "bar", :image => File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png"))) }
 
     it "should show all of the existing photos in order" do
-      get :index
+      xhr :get, :index
       response.should be_success
-      assigns.should have_key(:photos)
-      assigns[:photos].should =~ [photo1, photo2]
+      JSON.parse(response.body).map(&:symbolize_keys).should == [photo1, photo2].as_json
     end
   end
 end

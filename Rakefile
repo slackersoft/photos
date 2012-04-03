@@ -19,4 +19,4 @@ task :cruise do
   end
 end
 
-task :default => [:spec, 'jasmine:ci']
+task :default => [:spec, 'jshint', 'jasmine:ci']

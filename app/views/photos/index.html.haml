@@ -1,6 +1,0 @@
-- if @photos.empty?
-  .no-photos No photos have been uploaded yet
-- else
-  - @photos.each do |photo|
-    .photo
-      =link_to image_tag(photo.image.url(:thumb), alt: photo.name, title: photo.name), photo.image.url

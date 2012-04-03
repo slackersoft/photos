@@ -1,5 +1,7 @@
 class PhotosController < ApplicationController
+  respond_to :json
+
   def index
-    @photos = Photo.all
+    respond_with Photo.all
   end
 end
