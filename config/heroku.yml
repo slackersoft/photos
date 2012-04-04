@@ -10,6 +10,7 @@
 production:
   app: gnj-photos
   stack: cedar
+  tag: production/*
   config:
     BUNDLE_WITHOUT: "development:test"
 

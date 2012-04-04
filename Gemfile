@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.3'
 
 group :assets do
   gem 'sass-rails'
