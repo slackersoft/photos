@@ -28,6 +28,7 @@ gem 'mail'
 group :development, :test do
   gem 'rspec-rails'
   gem 'jasmine', github: 'pivotal/jasmine-gem'
+  gem 'jasmine-core'
   gem "headless", "0.1.0"
 
   gem 'jshint_on_rails'

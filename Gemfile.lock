@@ -88,7 +88,7 @@ GEM
       multi_json
       multi_xml
     i18n (0.6.0)
-    jasmine-core (1.2.0.rc1)
+    jasmine-core (1.2.0.rc3)
     journey (1.0.3)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -213,6 +213,7 @@ DEPENDENCIES
   heroku_san
   hpricot
   jasmine!
+  jasmine-core
   jquery-rails
   jshint_on_rails
   json
