@@ -16,6 +16,12 @@ describe Photo do
     end
   end
 
+  it "should save widths for non-original versions" do
+    photo = Photo.create(name: 'foo', image: File.new(Rails.root.join('spec/fixtures/files/mushroom.png')))
+    photo.thumb_width.should == 100
+    photo.large_width.should == 200
+  end
+
   describe "#as_json" do
     let(:photo) { Photo.create(name: 'foo', image: File.new(Rails.root.join('spec/fixtures/files/mushroom.png'))) }
     subject { photo.as_json }
@@ -25,7 +31,9 @@ describe Photo do
         id: photo.id,
         name: 'foo',
         thumbUrl: photo.image.url(:thumb),
+        thumbWidth: photo.thumb_width,
         largeUrl: photo.image.url(:large),
+        largeWidth: photo.large_width,
         rawUrl: photo.image.url(:original)
       }
     end
