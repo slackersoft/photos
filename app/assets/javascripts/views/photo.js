@@ -1,4 +1,4 @@
-(function (app) {
+(function (app, $) {
   app.views.Photo = Backbone.View.extend({
     template: 'photo',
     className: 'photo',
@@ -19,7 +19,7 @@
       e.preventDefault();
       $.fancybox($('<div class="large_photo"><img src="' + this.model.get('largeUrl') +
         '" width="' + this.model.get('largeWidth') + '"><div><a href="' +
-        this.model.get('rawUrl') +'">Original</a></div></div>'));
+        this.model.get('rawUrl') + '">Original</a></div></div>'));
     }
   });
-}(PhotosApp));
+}(PhotosApp, jQuery));
