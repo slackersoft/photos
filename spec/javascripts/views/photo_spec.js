@@ -23,7 +23,7 @@ describe("views.Photo", function () {
 
     it("should open the large image in a fancybox", function () {
       view.$('a').click();
-      expect(jQuery.fancybox).toHaveBeenCalledWith(model.get('largeUrl'));
+      expect(jQuery.fancybox).toHaveBeenCalled();
     });
   });
 });
