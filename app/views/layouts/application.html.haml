@@ -17,4 +17,4 @@
     .scripts
       = javascript_include_tag "application"
       %script
-        window.PhotosApp.init();
+        window.PhotosApp.init(#{@photos.to_json.html_safe});

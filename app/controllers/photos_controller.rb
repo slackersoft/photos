@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
-  respond_to :json
+  respond_to :html
 
-  def index
-    respond_with Photo.all
+  def show
+    @photos = Photo.all
   end
 end

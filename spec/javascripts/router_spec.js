@@ -2,15 +2,31 @@ describe("Router", function () {
   var router;
   beforeEach(function () {
     router = new PhotosApp.Router();
-    PhotosApp.photos = new PhotosApp.collections.Photos();
-    spyOn(PhotosApp.photos, 'fetch');
   });
 
   describe("root", function () {
-    it("should set the root url correctly and call fetch", function () {
+    beforeEach(function () {
+      spyOn(jQuery.fancybox, 'close');
+    });
+
+    it("should close any open photo box", function () {
       router.root();
-      expect(PhotosApp.photos.url).toEqual('/photos');
-      expect(PhotosApp.photos.fetch).toHaveBeenCalled();
+      expect(jQuery.fancybox.close).toHaveBeenCalled();
+    });
+  });
+
+  describe("photo show", function () {
+    beforeEach(function () {
+      spyOn(jQuery, 'fancybox');
+
+      PhotosApp.photos = new PhotosApp.collections.Photos([
+        {id: 1}
+      ]);
+    });
+
+    it("should open the specified photo in a fancybox", function () {
+      router.photo(1);
+      expect(jQuery.fancybox).toHaveBeenCalled();
     });
   });
 });

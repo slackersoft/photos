@@ -13,5 +13,6 @@
 //= require models/photo
 //= require collections/photos
 //= require views/photo
+//= require views/large_photo
 //= require views/photo_list
 //= require router
