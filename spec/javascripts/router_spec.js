@@ -28,5 +28,24 @@ describe("Router", function () {
       router.photo(1);
       expect(jQuery.fancybox).toHaveBeenCalled();
     });
+
+    describe("when the fancybox is closed", function () {
+      beforeEach(function () {
+        router.photo(1);
+        jQuery.fancybox.mostRecentCall.args[1].afterClose();
+      });
+
+      it("should navigate to root", function () {
+        expect(Backbone.history.navigate).toHaveBeenCalledWith('');
+      });
+    });
+
+    describe("when the photo doesn't exist", function () {
+      it("should navigate to root", function () {
+        router.photo(42);
+        expect(jQuery.fancybox).not.toHaveBeenCalled();
+        expect(Backbone.history.navigate).toHaveBeenCalledWith('');
+      });
+    });
   });
 });

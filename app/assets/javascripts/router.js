@@ -10,12 +10,17 @@
     },
 
     photo: function (photoId) {
-      var view = new app.views.LargePhoto({model: PhotosApp.photos.get(photoId)});
-      $.fancybox(view.render().$el, {
-        afterClose: function () {
-          Backbone.history.navigate('');
-        }
-      });
+      var model = PhotosApp.photos.get(photoId);
+      if (model) {
+        var view = new app.views.LargePhoto({model: model});
+        $.fancybox(view.render().$el, {
+          afterClose: function () {
+            Backbone.history.navigate('');
+          }
+        });
+      } else {
+        Backbone.history.navigate('');
+      }
     }
   });
 }(PhotosApp, jQuery));
