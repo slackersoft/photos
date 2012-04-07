@@ -6,8 +6,8 @@ FixtureBuilder.configure do |fbuilder|
 
   # now declare objects
   fbuilder.factory do
-
     mohawk = create(:photo)
+    mushroom = create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png')))
   end
 
   FactoryGirl.sequences.each do |seq|

@@ -33,4 +33,12 @@ describe Photo do
       }
     end
   end
+
+  context "scopes" do
+    describe ".for_display" do
+      subject { Photo.for_display }
+
+      it { should == [photos(:mushroom), photos(:mohawk)] }
+    end
+  end
 end

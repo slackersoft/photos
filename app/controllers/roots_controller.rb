@@ -2,6 +2,6 @@ class RootsController < ApplicationController
   respond_to :html
 
   def index
-    @photos = Photo.all
+    @photos = Photo.for_display
   end
 end

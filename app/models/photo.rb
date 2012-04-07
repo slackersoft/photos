@@ -7,6 +7,10 @@ class Photo < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :original_message_id
 
+  def self.for_display
+    order('id desc')
+  end
+
   def as_json(options={})
     {
       id: id,
