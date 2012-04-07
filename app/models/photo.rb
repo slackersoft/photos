@@ -5,6 +5,7 @@ class Photo < ActiveRecord::Base
 
   validates_attachment_presence :image
   validates_presence_of :name
+  validates_uniqueness_of :original_message_id
 
   def as_json(options={})
     {

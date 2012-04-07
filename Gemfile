@@ -32,6 +32,9 @@ group :development, :test do
   gem "headless", "0.1.0"
 
   gem 'jshint_on_rails'
+  gem 'shoulda'
+  gem 'factory_girl_rails'
+  gem 'fixture_builder'
 end
 
 group :development do

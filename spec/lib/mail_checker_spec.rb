@@ -13,7 +13,8 @@ describe MailChecker do
         m = Mail.new({
           from: sender_email,
           subject: email_subject,
-          to: 'photos@greggandjen.com'
+          to: 'photos@greggandjen.com',
+          message_id: '123@test'
         })
         to_attach.each { |name, value| m.attachments[name] = File.read(Rails.root.join(value)) }
         [m]
@@ -88,6 +89,15 @@ describe MailChecker do
                 subject.call
 
                 Mail::TestRetriever.emails.should be_empty
+              end
+
+              context "when the message has already been imported" do
+                before do
+                  subject.call
+                  Mail::TestRetriever.emails = emails.dup
+                end
+
+                it { should_not change { Photo.count } }
               end
             end
           end

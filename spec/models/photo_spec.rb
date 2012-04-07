@@ -2,18 +2,13 @@ require 'spec_helper'
 
 describe Photo do
   describe "validations" do
-    it "should require an image" do
-      photo = Photo.new
-      photo.should_not be_valid
-      photo.should have_attached_file(:image)
-      photo.should have(1).error_on(:image_file_name)
-    end
+    it { should validate_presence_of(:name) }
+    it { should validate_attachment_presence(:image) }
+    it { should validate_uniqueness_of(:original_message_id) }
+  end
 
-    it "should require a name" do
-      photo = Photo.new
-      photo.should_not be_valid
-      photo.should have(1).error_on(:name)
-    end
+  it "should have a working factory" do
+    build(:photo).should be_valid
   end
 
   it "should save widths for non-original versions" do
