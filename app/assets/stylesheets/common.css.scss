@@ -1,5 +1,18 @@
 @import 'mixins.css.scss';
 
+
+@font-face /* IE */
+{
+	font-family: 'StrangeloveText';
+	src: url('/fonts/strangelove-text.eot');
+}
+
+@font-face /* everyone else */
+{
+	font-family: 'StrangeloveText';
+	src: url(//:) format("No-IE-404"), url('/fonts/strangelove-text.otf') format("opentype");
+}
+
 body {
   background: #EEEEEE;
   position: relative;
@@ -12,8 +25,9 @@ body {
 
 .header {
   height: 50px;
-  font-size: 20px;
+  font-size: 50px;
   padding: 8px 0 0 15px;
+  font-family: "StrangeloveText";
 }
 
 .footer {
