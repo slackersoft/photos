@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe MailChecker do
+  before do
+    MailChecker.stub(:log)
+  end
+
   describe ".check_for_mail" do
     subject { lambda { MailChecker.check_for_mail } }
 
