@@ -57,4 +57,8 @@ Photos::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Speak friend, and enter") do |u, p|
+    u == 'photos' && p == 'greggandjen'
+  end
 end
