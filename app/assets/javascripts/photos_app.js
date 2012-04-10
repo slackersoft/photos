@@ -1,4 +1,5 @@
 window.PhotosApp = {
+  templates: {},
   views: {},
   models: {},
   collections: {},

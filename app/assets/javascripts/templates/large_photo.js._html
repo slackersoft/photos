@@ -1,0 +1,4 @@
+<img src="<%= largeUrl %>" width="<%= largeWidth %>" height="<%= largeHeight %>" alt="<%= name %>" title="<%= name %>"/>
+<div>
+  <a href="<%= rawUrl %>">Original</a>
+</div>

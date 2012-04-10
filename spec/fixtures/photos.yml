@@ -1,27 +1,31 @@
 --- 
 mohawk: 
-  id: 7
+  id: 1
   name: Mohawk
   description: 
   image_file_name: mohawk.jpeg
   image_content_type: image/jpeg
   image_file_size: 42507
-  image_updated_at: 2012-04-07 21:55:10.319559 Z
-  created_at: 2012-04-07 21:55:10.716137 Z
-  updated_at: 2012-04-07 21:55:10.716137 Z
+  image_updated_at: 2012-04-09 04:20:56.777855 Z
+  created_at: 2012-04-09 04:20:57.206722 Z
+  updated_at: 2012-04-09 04:20:57.206722 Z
   thumb_width: 75
   large_width: 375
   original_message_id: 1@mohawks.us
+  thumb_height: 
+  large_height: 
 mushroom: 
-  id: 8
+  id: 2
   name: mushroom
   description: 
   image_file_name: mushroom.png
   image_content_type: image/png
   image_file_size: 497
-  image_updated_at: 2012-04-07 21:55:10.801307 Z
-  created_at: 2012-04-07 21:55:10.980373 Z
-  updated_at: 2012-04-07 21:55:10.980373 Z
+  image_updated_at: 2012-04-09 04:20:57.313921 Z
+  created_at: 2012-04-09 04:20:57.491787 Z
+  updated_at: 2012-04-09 04:20:57.491787 Z
   thumb_width: 100
   large_width: 200
   original_message_id: 2@mohawks.us
+  thumb_height: 
+  large_height: 

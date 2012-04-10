@@ -10,6 +10,7 @@
 //= require vendor/backbone
 //= require vendor/jquery.fancybox
 //= require photos_app
+//= require_tree ./templates
 //= require models/photo
 //= require collections/photos
 //= require views/photo

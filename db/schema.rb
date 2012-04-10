@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120407195826) do
+ActiveRecord::Schema.define(:version => 20120409041716) do
 
   create_table "photos", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20120407195826) do
     t.integer  "thumb_width"
     t.integer  "large_width"
     t.string   "original_message_id"
+    t.integer  "thumb_height"
+    t.integer  "large_height"
   end
 
 end

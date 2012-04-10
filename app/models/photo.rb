@@ -11,24 +11,40 @@ class Photo < ActiveRecord::Base
     order('id desc')
   end
 
-  def as_json(options={})
+  def as_json(options={ })
     {
       id: id,
       name: name,
       thumbUrl: image.url(:thumb),
       thumbWidth: thumb_width,
+      thumbHeight: thumb_height,
       largeUrl: image.url(:large),
       largeWidth: large_width,
+      largeHeight: large_height,
       rawUrl: image.url(:original)
     }
+  end
+
+  def reset_dimensions!
+    converted_styles.each do |style|
+      geo = Paperclip::Geometry.from_file(image.to_file(style))
+      send("#{style}_width=", geo.width)
+      send("#{style}_height=", geo.height)
+    end
+    save!
   end
 
   private
 
   def save_dimensions
-    thumb_geo = Paperclip::Geometry.from_file(image.queued_for_write[:thumb])
-    large_geo = Paperclip::Geometry.from_file(image.queued_for_write[:large])
-    self.thumb_width = thumb_geo.width
-    self.large_width = large_geo.width
+    converted_styles.each do |style|
+      geo = Paperclip::Geometry.from_file(image.queued_for_write[style])
+      send("#{style}_width=", geo.width)
+      send("#{style}_height=", geo.height)
+    end
+  end
+
+  def converted_styles
+    ::PAPERCLIP_OPTIONS[:styles].keys.reject { |s| s == :original }
   end
 end

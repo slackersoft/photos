@@ -11,10 +11,12 @@ describe Photo do
     build(:photo).should be_valid
   end
 
-  it "should save widths for non-original versions" do
+  it "should save widths and heights for non-original versions" do
     photo = Photo.create(name: 'foo', image: File.new(Rails.root.join('spec/fixtures/files/mushroom.png')))
     photo.thumb_width.should == 100
+    photo.thumb_height.should == 100
     photo.large_width.should == 200
+    photo.large_height.should == 200
   end
 
   describe "#as_json" do
@@ -27,8 +29,10 @@ describe Photo do
         name: 'foo',
         thumbUrl: photo.image.url(:thumb),
         thumbWidth: photo.thumb_width,
+        thumbHeight: photo.thumb_height,
         largeUrl: photo.image.url(:large),
         largeWidth: photo.large_width,
+        largeHeight: photo.large_height,
         rawUrl: photo.image.url(:original)
       }
     end
@@ -39,6 +43,23 @@ describe Photo do
       subject { Photo.for_display }
 
       it { should == [photos(:mushroom), photos(:mohawk)] }
+    end
+  end
+
+  describe ".reset_dimensions!" do
+    let(:photo) { photos(:mushroom) }
+
+    before do
+      photo.update_attributes(thumb_width: 0, thumb_height: 0, large_width: 0, large_height: 0)
+    end
+
+    it "should reset the saved dimensions to what is currently in the file" do
+      photo.reset_dimensions!
+
+      photo.thumb_width.should == 100
+      photo.thumb_height.should == 100
+      photo.large_width.should == 200
+      photo.large_height.should == 200
     end
   end
 end
