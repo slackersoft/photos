@@ -20,13 +20,14 @@ describe Photo do
   end
 
   describe "#as_json" do
-    let(:photo) { Photo.create(name: 'foo', image: File.new(Rails.root.join('spec/fixtures/files/mushroom.png'))) }
+    let(:photo) { Photo.create(name: 'foo', description: 'and stuff', image: File.new(Rails.root.join('spec/fixtures/files/mushroom.png'))) }
     subject { photo.as_json }
 
     it do
       should == {
         id: photo.id,
         name: 'foo',
+        description: 'and stuff',
         thumbUrl: photo.image.url(:thumb),
         thumbWidth: photo.thumb_width,
         thumbHeight: photo.thumb_height,

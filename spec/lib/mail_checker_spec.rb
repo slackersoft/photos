@@ -13,14 +13,16 @@ describe MailChecker do
     context "when there are messages" do
       let(:sender_email) { 'gregg@greggandjen.com' }
       let(:email_subject) { '' }
+      let(:email_body_text) { '' }
       let(:emails) do
         m = Mail.new({
           from: sender_email,
           subject: email_subject,
           to: 'photos@greggandjen.com',
-          message_id: '123@test'
+          message_id: '123@test',
+          body: email_body_text
         })
-        to_attach.each { |name, value| m.attachments[name] = File.read(Rails.root.join(value)) }
+        to_attach.each { |name, value| m.add_file({ filename: name, content: File.read(Rails.root.join(value)) }) }
         [m]
       end
 
@@ -69,6 +71,12 @@ describe MailChecker do
 
               it { should change { Photo.count }.by(1) }
 
+              it "should delete the mail" do
+                subject.call
+
+                Mail::TestRetriever.emails.should be_empty
+              end
+
               context "when the email has a blank subject" do
                 let(:email_subject) { '' }
 
@@ -89,10 +97,24 @@ describe MailChecker do
                 end
               end
 
-              it "should delete the mail" do
-                subject.call
+              context "when the email has an empty body" do
+                let(:body_text) { '' }
 
-                Mail::TestRetriever.emails.should be_empty
+                it "should set the photo's description to be empty" do
+                  subject.call
+
+                  Photo.last.description.should == ''
+                end
+              end
+
+              context "when the email has text in it" do
+                let(:email_body_text) { 'this is some descriptive text' }
+
+                it "should use the text as the description for the image" do
+                  subject.call
+
+                  Photo.last.description.should == email_body_text
+                end
               end
 
               context "when the message has already been imported" do

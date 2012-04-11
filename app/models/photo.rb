@@ -15,6 +15,7 @@ class Photo < ActiveRecord::Base
     {
       id: id,
       name: name,
+      description: description,
       thumbUrl: image.url(:thumb),
       thumbWidth: thumb_width,
       thumbHeight: thumb_height,

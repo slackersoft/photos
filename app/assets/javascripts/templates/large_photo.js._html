@@ -1,5 +1,6 @@
 <h2><%= name %></h2>
 <img src="<%= largeUrl %>" width="<%= largeWidth %>" height="<%= largeHeight %>" alt="<%= name %>" title="<%= name %>"/>
 <div>
+  <%= description %>
   <a href="<%= rawUrl %>">Original</a>
 </div>
