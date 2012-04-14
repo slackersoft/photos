@@ -1,7 +1,7 @@
 describe("views.Photo", function () {
   var view, model;
   beforeEach(function () {
-    model = new PhotosApp.models.Photo({thumbUrl: 'foo', largeUrl: 'bar'});
+    model = new PhotosApp.models.Photo(jasmine.photoJson(1));
     view = new PhotosApp.views.Photo({model: model});
   });
 

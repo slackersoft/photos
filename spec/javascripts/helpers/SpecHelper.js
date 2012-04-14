@@ -15,3 +15,18 @@ beforeEach(function () {
 afterEach(function () {
   Backbone.history = oldHistory;
 });
+
+jasmine.photoJson = function (id) {
+  return {
+    id: id,
+    name: "Mushroom",
+    description: "",
+    thumbUrl: "",
+    thumbWidth: 100,
+    thumbHeight: 100,
+    largeUrl: "",
+    largeWidth: 200,
+    largeHeight: 500,
+    rawUrl: ""
+  };
+};

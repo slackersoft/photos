@@ -20,7 +20,7 @@ describe("Router", function () {
       spyOn(jQuery, 'fancybox');
 
       PhotosApp.photos = new PhotosApp.collections.Photos([
-        {id: 1}
+        jasmine.photoJson(1)
       ]);
     });
 

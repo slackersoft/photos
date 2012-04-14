@@ -3,9 +3,9 @@ describe("PhotosApp", function () {
     var photoJson;
     beforeEach(function () {
       photoJson = [
-        {"id": 1, "name": "Mushroom", "thumbUrl": "", "thumbWidth": 100, "largeUrl": "", "largeWidth": 200, "rawUrl": ""},
-        {"id": 2, "name": "Mohawk", "thumbUrl": "", "thumbWidth": 75, "largeUrl": "", "largeWidth": 375, "rawUrl": ""},
-        {"id": 3, "name": "Sleeping", "thumbUrl": "", "thumbWidth": 100, "largeUrl": "", "largeWidth": 500, "rawUrl": ""}
+        jasmine.photoJson(1),
+        jasmine.photoJson(2),
+        jasmine.photoJson(3)
       ];
       jQuery('#jasmine_content').html('<div class="photo_list"></div>');
       spyOn(PhotosApp, 'Router');

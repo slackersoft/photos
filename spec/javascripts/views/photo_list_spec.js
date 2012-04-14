@@ -15,7 +15,7 @@ describe("views.PhotoList", function () {
 
     describe("when there are photos", function () {
       beforeEach(function () {
-        collection.reset([{}, {}], {silent: true});
+        collection.reset([jasmine.photoJson(1), jasmine.photoJson(2)], {silent: true});
       });
 
       it("should render each", function () {
@@ -39,7 +39,7 @@ describe("views.PhotoList", function () {
   describe("when the collection is updated", function () {
     it("should render", function () {
       spyOn(view, 'render');
-      collection.reset([{}]);
+      collection.reset([jasmine.photoJson(3)]);
       expect(view.$('.photo').length).toEqual(1);
     });
   });
