@@ -11,7 +11,7 @@ class MailChecker
 
           if image_attachment.present?
             photo_name = mail.subject.blank? ? image_attachment.original_filename : mail.subject
-            description = mail.text_part.try(:body).to_s
+            description = extract_description mail.text_part.try(:body).to_s
 
             log("Found attachment, creating photo #{photo_name}")
             Photo.create!(name: photo_name, description: description, image: image_attachment, original_message_id: mail.message_id)
@@ -43,6 +43,12 @@ class MailChecker
 
     def valid_sender?(mail)
       %w(gregg@greggandjen.com jen@greggandjen.com).include? mail.from.first
+    end
+
+    def extract_description(text_body)
+      return nil unless text_body.is_a?(String)
+
+      text_body.gsub(/^\s*--\s*$.*\z/m, '').strip
     end
   end
 end

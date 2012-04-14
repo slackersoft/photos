@@ -2,30 +2,30 @@
 mohawk: 
   id: 1
   name: Mohawk
-  description: 
+  description: Two feet tall
   image_file_name: mohawk.jpeg
   image_content_type: image/jpeg
   image_file_size: 42507
-  image_updated_at: 2012-04-09 04:20:56.777855 Z
-  created_at: 2012-04-09 04:20:57.206722 Z
-  updated_at: 2012-04-09 04:20:57.206722 Z
+  image_updated_at: 2012-04-14 01:40:20.222341 Z
+  created_at: 2012-04-14 01:40:20.938683 Z
+  updated_at: 2012-04-14 01:40:20.938683 Z
   thumb_width: 75
   large_width: 375
   original_message_id: 1@mohawks.us
-  thumb_height: 
-  large_height: 
+  thumb_height: 100
+  large_height: 500
 mushroom: 
   id: 2
   name: mushroom
-  description: 
+  description: Two feet tall
   image_file_name: mushroom.png
   image_content_type: image/png
   image_file_size: 497
-  image_updated_at: 2012-04-09 04:20:57.313921 Z
-  created_at: 2012-04-09 04:20:57.491787 Z
-  updated_at: 2012-04-09 04:20:57.491787 Z
+  image_updated_at: 2012-04-14 01:40:21.005635 Z
+  created_at: 2012-04-14 01:40:21.301092 Z
+  updated_at: 2012-04-14 01:40:21.301092 Z
   thumb_width: 100
   large_width: 200
   original_message_id: 2@mohawks.us
-  thumb_height: 
-  large_height: 
+  thumb_height: 100
+  large_height: 200

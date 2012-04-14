@@ -115,6 +115,22 @@ describe MailChecker do
 
                   Photo.last.description.should == email_body_text
                 end
+
+                context "with a signature" do
+                  let(:email_body_text) do
+                    <<-TEXT
+                    this is a description
+                     --
+                    Some signature
+                    TEXT
+                  end
+
+                  it "should not include the signature in the description" do
+                    subject.call
+
+                    Photo.last.description.should == "this is a description"
+                  end
+                end
               end
 
               context "when the message has already been imported" do
