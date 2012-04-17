@@ -1,14 +1,18 @@
 class UnderscoreTemplate < Tilt::Template
-  self.default_mime_type = 'text/javascript'
+  include ActionView::Helpers::JavaScriptHelper
 
-  def self.engine_initialized?; true; end
+  self.default_mime_type = 'application/javascript'
+  self.engine_initialized = true
+
   def initialize_engine; end
   def prepare; end
 
   def evaluate(context, locals, &block)
-    template_name = Pathname.new(@file).sub_ext('').sub_ext('').basename.to_s
+    template_name = context.logical_path.gsub(/^templates\/(.*)$/, "\\1").to_s
     @output = <<-JS
-PhotosApp.templates['#{template_name}'] = _.template("#{@data.gsub('"', '\"').gsub("\n", "")}")
+(function (app) {
+app.templates['#{template_name}'] = _.template("#{escape_javascript data}");
+}(PhotosApp));
 JS
   end
 end
