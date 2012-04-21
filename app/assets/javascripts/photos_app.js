@@ -9,5 +9,10 @@ window.PhotosApp = {
     PhotosApp.photos.reset(photos);
     PhotosApp.router = new PhotosApp.Router();
     Backbone.history.start({pushState: true});
+
+	jQuery('.photo_list a').click(function (e) {
+		e.preventDefault();
+		Backbone.history.navigate($(this).attr('href'), {trigger: true});
+	});
   }
 };

@@ -12,6 +12,7 @@ end
 gem 'jquery-rails'
 
 gem "bundler"
+gem 'thin'
 gem "auto_tagger"
 gem "json"
 gem "pg"
@@ -24,6 +25,8 @@ gem 'newrelic_rpm'
 gem 'aws-s3'
 gem 'aws-sdk'
 gem 'mail'
+gem 'devise'
+gem 'omniauth-openid'
 
 group :development, :test do
   gem 'rspec-rails'
