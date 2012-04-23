@@ -8,6 +8,13 @@
     .header
       .wrapper
         %h1 Gregg and Jen's Photos
+        - if current_user
+          .signed_in
+            Hello #{current_user.email}
+            = link_to "sign out", destroy_session_path
+        - else
+          .sign_in
+            = link_to "sign in with google", user_omniauth_authorize_path(:google)
     .content
       .wrapper
         = yield

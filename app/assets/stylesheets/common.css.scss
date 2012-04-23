@@ -26,6 +26,18 @@ body {
 .header {
   height: 50px;
   padding: 8px 0 0 15px;
+
+  h1 {
+    display: inline-block;
+    width: 700px;
+  }
+
+  .sign_in, .signed_in {
+    float: right;
+    font-size: 10px;
+    text-align: right;
+    vertical-align: top;
+  }
 }
 
 .footer {
