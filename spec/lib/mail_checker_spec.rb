@@ -131,6 +131,22 @@ describe MailChecker do
                     Photo.last.description.should == "this is a description"
                   end
                 end
+
+                context "when the message was forwarded" do
+                  let(:email_body_text) do
+                    <<-TEXT
+                    this is a description
+                    ---------- Forwarded message ----------
+                    Some other stuff
+                    TEXT
+                  end
+
+                  it "should not include the forwarding information" do
+                    subject.call
+
+                    Photo.last.description.should == "this is a description"
+                  end
+                end
               end
 
               context "when the message has already been imported" do

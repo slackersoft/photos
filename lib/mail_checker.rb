@@ -48,7 +48,7 @@ class MailChecker
     def extract_description(text_body)
       return nil unless text_body.is_a?(String)
 
-      text_body.gsub(/^\s*--\s*$.*\z/m, '').strip
+      text_body.gsub(/^\s*--(-------- Forwarded message ----------)?\s*$.*\z/m, '').strip
     end
   end
 end
