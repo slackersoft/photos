@@ -95,6 +95,16 @@ describe MailChecker do
 
                   Photo.last.name.should == 'My Foo Thing'
                 end
+
+                context "when the email was forwarded" do
+                  let(:email_subject) { 'Fwd: My Foo Thing' }
+
+                  it "should not include the forwarding information" do
+                    subject.call
+
+                    Photo.last.name.should == 'My Foo Thing'
+                  end
+                end
               end
 
               context "when the email has an empty body" do
