@@ -43,4 +43,22 @@ describe("views.PhotoList", function () {
       expect(view.$('.photo').length).toEqual(1);
     });
   });
+
+  describe("clicking on a photo", function () {
+    var click;
+    beforeEach(function () {
+      click = jQuery.Event('click');
+      collection.reset([jasmine.photoJson(1), jasmine.photoJson(2)], {silent: true});
+      view.render();
+      view.$('.photo:first a img').trigger(click);
+    });
+
+    it("should prevent default", function () {
+      expect(click.isDefaultPrevented()).toEqual(true);
+    });
+
+    it("should navigate to the url", function () {
+      expect(Backbone.history.navigate).toHaveBeenCalledWith(view.$('.photo:first a').attr('href'), { trigger: true });
+    });
+  });
 });

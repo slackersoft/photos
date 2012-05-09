@@ -1,5 +1,9 @@
 (function (app) {
   app.views.PhotoList = Backbone.View.extend({
+    events: {
+      'click .photo a': 'openPhoto'
+    },
+
     initialize: function () {
       this.collection.on('reset', this.render, this);
     },
@@ -15,6 +19,11 @@
           self.$el.append(new app.views.Photo({model: photo}).render().el);
         });
       }
+    },
+
+    openPhoto: function (e) {
+      e.preventDefault();
+      Backbone.history.navigate($(e.currentTarget).attr('href'), { trigger: true });
     }
   });
 }(PhotosApp));
