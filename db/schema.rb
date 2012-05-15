@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120509145144) do
+ActiveRecord::Schema.define(:version => 20120511014001) do
 
   create_table "photos", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,20 @@ ActiveRecord::Schema.define(:version => 20120509145144) do
     t.integer  "thumb_height"
     t.integer  "large_height"
   end
+
+  create_table "photos_tags", :force => true do |t|
+    t.integer "photo_id"
+    t.integer "tag_id"
+  end
+
+  add_index "photos_tags", ["photo_id"], :name => "index_photos_tags_on_photo_id"
+  add_index "photos_tags", ["tag_id"], :name => "index_photos_tags_on_tag_id"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string  "email"

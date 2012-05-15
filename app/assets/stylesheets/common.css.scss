@@ -86,3 +86,30 @@ h3 {
     display: block;
   }
 }
+
+.tags ul {
+  display: inline-block;
+  li {
+    display: inline-block;
+    background: green;
+    @include rounded(10px);
+    @include bg_gradient(top, #00CC00, #009900);
+    padding: 2px 12px;
+  }
+}
+
+.add_tag {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid gray;
+  @include bg_gradient(top, #efefef, #999999);
+  color: black;
+  text-align: center;
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    color: black;
+  }
+}

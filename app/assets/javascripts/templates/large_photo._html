@@ -3,4 +3,13 @@
 <div>
   <%= description %>
   <a href="<%= rawUrl %>">Original</a>
+  <div class="tags">
+    Tags:
+    <ul>
+      <% _(tags).each(function (tag) { %>
+        <li><%= tag %></li>
+      <% }); %>
+    </ul>
+    <a href="#" class="add_tag">+</a>
+  </div>
 </div>

@@ -27,6 +27,7 @@ gem 'aws-sdk'
 gem 'mail'
 gem 'devise'
 gem 'omniauth-openid'
+gem 'cancan'
 
 group :development, :test do
   gem 'rspec-rails'

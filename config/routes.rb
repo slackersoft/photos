@@ -6,6 +6,10 @@ Photos::Application.routes.draw do
     get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_session
   end
 
-  resources :photos, :only => [:show]
+  resources :photos, :only => [:show] do
+    member do
+      post :add_tag
+    end
+  end
   root :to => "roots#index"
 end

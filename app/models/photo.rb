@@ -1,11 +1,15 @@
 class Photo < ActiveRecord::Base
   has_attached_file :image, ::PAPERCLIP_OPTIONS
 
+  has_and_belongs_to_many :tags
+
   after_post_process :save_dimensions
 
   validates_attachment_presence :image
   validates_presence_of :name
   validates_uniqueness_of :original_message_id
+
+  before_save :uniq_tags
 
   def self.for_display
     order('id desc')
@@ -22,7 +26,8 @@ class Photo < ActiveRecord::Base
       largeUrl: image.url(:large),
       largeWidth: large_width,
       largeHeight: large_height,
-      rawUrl: image.url(:original)
+      rawUrl: image.url(:original),
+      tags: tag_names
     }
   end
 
@@ -33,6 +38,17 @@ class Photo < ActiveRecord::Base
       send("#{style}_height=", geo.height)
     end
     save!
+  end
+
+  def has_tag?(tag_name)
+    tag_names().include? tag_name
+  end
+
+  def add_tag(tag_name)
+    unless has_tag?(tag_name)
+      self.tags << Tag.find_or_create_by_name(tag_name)
+      save
+    end
   end
 
   private
@@ -47,5 +63,13 @@ class Photo < ActiveRecord::Base
 
   def converted_styles
     ::PAPERCLIP_OPTIONS[:styles].keys.reject { |s| s == :original }
+  end
+
+  def uniq_tags
+    self.tags.uniq!
+  end
+
+  def tag_names
+    tags.map(&:name)
   end
 end

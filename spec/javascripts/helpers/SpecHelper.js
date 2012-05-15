@@ -9,6 +9,8 @@ beforeEach(function () {
 
   PhotosApp.photos = null;
   PhotosApp.photoList = null;
+  jasmine.Ajax.useMock();
+  clearAjaxRequests();
 });
 
 
@@ -27,6 +29,7 @@ jasmine.photoJson = function (id) {
     largeUrl: "",
     largeWidth: 200,
     largeHeight: 500,
-    rawUrl: ""
+    rawUrl: "",
+    tags: []
   };
 };
