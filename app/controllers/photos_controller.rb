@@ -4,9 +4,13 @@ class PhotosController < ApplicationController
   end
 
   def add_tag
-    photo = Photo.find(params[:id])
-    photo.add_tag params[:tag]
+    if current_user && current_user.authorized
+      photo = Photo.find(params[:id])
+      photo.add_tag params[:tag]
 
-    render json: photo
+      render json: photo
+    else
+      head 403
+    end
   end
 end

@@ -9,6 +9,7 @@ beforeEach(function () {
 
   PhotosApp.photos = null;
   PhotosApp.photoList = null;
+  PhotosApp.currentUser = null;
   jasmine.Ajax.useMock();
   clearAjaxRequests();
 });

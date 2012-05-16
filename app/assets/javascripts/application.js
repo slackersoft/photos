@@ -11,9 +11,7 @@
 //= require vendor/jquery.fancybox
 //= require photos_app
 //= require_tree ./templates
-//= require models/photo
+//= require_tree ./models
 //= require collections/photos
-//= require views/photo
-//= require views/large_photo
-//= require views/photo_list
+//= require_tree ./views
 //= require router

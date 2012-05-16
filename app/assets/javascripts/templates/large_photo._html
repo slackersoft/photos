@@ -10,6 +10,8 @@
         <li><%= tag %></li>
       <% }); %>
     </ul>
-    <a href="#" class="add_tag">+</a>
+    <% if (PhotosApp.currentUser.get('authorized')) { %>
+      <a href="#" class="add_tag">+</a>
+    <% } %>
   </div>
 </div>

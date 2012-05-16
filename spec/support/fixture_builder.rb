@@ -9,6 +9,10 @@ FixtureBuilder.configure do |fbuilder|
     mohawk = create(:photo)
     default = create(:tag, name: 'mario')
     mushroom = create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png')), tags: [default])
+
+    @unauthorized = create(:user, email: 'unauthorized@example.com')
+    @authorized = create(:authorized, email: 'authorized@example.com')
+    @admin = create(:admin, email: 'admin@example.com')
   end
 
   FactoryGirl.sequences.each do |seq|
