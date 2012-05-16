@@ -54,7 +54,6 @@ GEM
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
-    cancan (1.6.7)
     capistrano (2.9.0)
       highline
       net-scp (>= 1.0.0)
@@ -257,7 +256,6 @@ DEPENDENCIES
   aws-s3
   aws-sdk
   bundler
-  cancan
   devise
   factory_girl_rails
   fixture_builder
