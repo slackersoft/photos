@@ -10,11 +10,16 @@ class MailChecker
           image_attachment = find_image_attachment(mail.attachments)
 
           if image_attachment.present?
-            photo_name = extract_name(image_attachment, mail)
+            from_subject = extract_name_and_tags(image_attachment, mail)
+            photo_name = from_subject[:name]
             description = extract_description mail.text_part.try(:body).to_s
 
             log("Found attachment, creating photo #{photo_name}")
-            Photo.create!(name: photo_name, description: description, image: image_attachment, original_message_id: mail.message_id)
+            pic = Photo.create!(name: photo_name, description: description, image: image_attachment, original_message_id: mail.message_id)
+
+            from_subject[:tags].each do |tag|
+              pic.add_tag(tag)
+            end
           end
         end
       end
@@ -45,18 +50,37 @@ class MailChecker
       %w(gregg@greggandjen.com jen@greggandjen.com).include? mail.from.first
     end
 
-    def extract_name(image_attachment, mail)
-      if mail.subject.blank?
-        image_attachment.original_filename
-      else
-        mail.subject.gsub(/^fwd:\s*/i, '')
-      end
-    end
-
     def extract_description(text_body)
       return nil unless text_body.is_a?(String)
 
       text_body.gsub(/^\s*--(-------- Forwarded message ----------)?\s*$.*\z/m, '').strip
+    end
+
+    def extract_name_and_tags(image_attachment, mail)
+      if mail.subject.blank?
+        return { name: image_attachment.original_filename, tags: [] }
+      end
+
+      name = mail.subject
+      name.gsub!(/^fwd:\s*/i, '')
+
+      tags = []
+      leading_tags = /\G\s*\[[^\]]+\]/
+      trailing_tags = /\[[^\]]+\](\s*|\[[^\]]+\])*$/
+      remove_brackets = /^\[|\]$/
+
+      name.gsub!(leading_tags) do |tag|
+        tags << tag.strip.gsub(remove_brackets, '')
+        ''
+      end
+      name.gsub!(trailing_tags) do |ending_tags|
+        ending_tags.gsub(leading_tags) do |tag|
+          tags << tag.strip.gsub(remove_brackets, '')
+        end
+        ''
+      end
+
+      { :name => name.strip, :tags => tags }
     end
   end
 end

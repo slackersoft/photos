@@ -105,6 +105,65 @@ describe MailChecker do
                     Photo.last.name.should == 'My Foo Thing'
                   end
                 end
+
+                context "when the subject looks like it has tags" do
+                  context "single tag at the beginning" do
+                    let(:email_subject) { '[Taggy] My Stuff' }
+
+                    it "should tag the photo and not have the tag in the name" do
+                      subject.call
+
+                      Photo.last.name.should == 'My Stuff'
+                      Photo.last.should have_tag('Taggy')
+                    end
+                  end
+
+                  context "multiple tags at the beginning" do
+                    let(:email_subject) { '[Taggy] [Stuff] My Stuff' }
+
+                    it "should tag the photo and not have the tag in the name" do
+                      subject.call
+
+                      Photo.last.name.should == 'My Stuff'
+                      Photo.last.should have_tag('Taggy')
+                      Photo.last.should have_tag('Stuff')
+                    end
+                  end
+
+                  context "single tag at the end" do
+                    let(:email_subject) { 'My Stuff [Taggy]' }
+
+                    it "should tag the photo and not have the tag in the name" do
+                      subject.call
+
+                      Photo.last.name.should == 'My Stuff'
+                      Photo.last.should have_tag('Taggy')
+                    end
+                  end
+
+                  context "multiple tags at the end" do
+                    let(:email_subject) { 'My Stuff [Taggy] [Stuff]' }
+
+                    it "should tag the photo and not have the tag in the name" do
+                      subject.call
+
+                      Photo.last.name.should == 'My Stuff'
+                      Photo.last.should have_tag('Taggy')
+                      Photo.last.should have_tag('Stuff')
+                    end
+                  end
+
+                  context "tag-like strings in the middle" do
+                    let(:email_subject) { 'My [Taggy] Stuff' }
+
+                    it "should not tag the photo or remove the tag-like string from the name" do
+                      subject.call
+
+                      Photo.last.name.should == 'My [Taggy] Stuff'
+                      Photo.last.tags.should == []
+                    end
+                  end
+                end
               end
 
               context "when the email has an empty body" do
