@@ -9,6 +9,7 @@ describe("PhotosApp", function () {
       ];
       jQuery('#jasmine_content').html('<div class="photo_list"></div>');
       spyOn(PhotosApp, 'Router');
+      PhotosApp.currentUser = null;
       PhotosApp.init(photoJson);
     });
 

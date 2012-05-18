@@ -25,6 +25,7 @@ describe("views.LargePhoto", function () {
     beforeEach(function () {
       spyOn(window, 'prompt');
       spyOn(model, 'addTag');
+      PhotosApp.currentUser = new PhotosApp.models.User({authorized: true});
       view.render();
     });
 

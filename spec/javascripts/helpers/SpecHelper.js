@@ -9,7 +9,7 @@ beforeEach(function () {
 
   PhotosApp.photos = null;
   PhotosApp.photoList = null;
-  PhotosApp.currentUser = null;
+  PhotosApp.currentUser = new PhotosApp.models.User({authorized: false});
   jasmine.Ajax.useMock();
   clearAjaxRequests();
 });
