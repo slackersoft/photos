@@ -15,6 +15,14 @@
         type: 'POST',
         data: { tag: tag }
       }).done(_.bind(this.set, this));
+    },
+
+    removeTag: function (tag) {
+      jQuery.ajax({
+        url: this.url('remove_tag'),
+        type: 'POST',
+        data: { tag: tag }
+      }).done(_.bind(this.set, this));
     }
   });
 }(PhotosApp));

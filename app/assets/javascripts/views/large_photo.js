@@ -4,7 +4,8 @@
     className: 'large_photo',
 
     events: {
-      'click .add_tag': 'addTag'
+      'click .add_tag': 'addTag',
+      'click .remove_tag': 'removeTag'
     },
 
     initialize: function () {
@@ -18,10 +19,16 @@
 
     addTag: function (e) {
       e.preventDefault();
-      var newTag = prompt('What tag do you want to add?');
+      var newTag = window.prompt('What tag do you want to add?');
       if (newTag && newTag.length > 0) {
         this.model.addTag(newTag);
       }
+    },
+
+    removeTag: function (e) {
+      e.preventDefault();
+      var tagEl = this.$(e.currentTarget).closest('li');
+      this.model.removeTag(tagEl.text().replace(/x$/, ''));
     }
   });
 }(PhotosApp));

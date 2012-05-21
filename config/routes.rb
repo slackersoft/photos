@@ -9,6 +9,7 @@ Photos::Application.routes.draw do
   resources :photos, :only => [:show] do
     member do
       post :add_tag
+      post :remove_tag
     end
   end
   root :to => "roots#index"

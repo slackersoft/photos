@@ -94,7 +94,7 @@ h3 {
     background: green;
     @include rounded(10px);
     @include bg_gradient(top, #00CC00, #009900);
-    padding: 2px 12px;
+    padding: 2px 6px 2px 12px;
   }
 }
 
@@ -106,6 +106,19 @@ h3 {
   @include bg_gradient(top, #efefef, #999999);
   color: black;
   text-align: center;
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    color: black;
+  }
+}
+
+.remove_tag {
+  margin-left: 5px;
+  border-left: 1px solid black;
+  padding-left: 5px;
+  color: black;
   &:hover {
     text-decoration: none;
   }

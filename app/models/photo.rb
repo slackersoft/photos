@@ -51,6 +51,11 @@ class Photo < ActiveRecord::Base
     end
   end
 
+  def remove_tag(tag_name)
+    self.tags.delete(Tag.where(name: tag_name))
+    save!
+  end
+
   private
 
   def save_dimensions

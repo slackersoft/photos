@@ -7,8 +7,8 @@ FixtureBuilder.configure do |fbuilder|
   # now declare objects
   fbuilder.factory do
     mohawk = create(:photo)
-    default = create(:tag, name: 'mario')
-    mushroom = create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png')), tags: [default])
+    @tag = create(:tag, name: 'mario')
+    mushroom = create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png')), tags: [@tag])
 
     @unauthorized = create(:user, email: 'unauthorized@example.com')
     @authorized = create(:authorized, email: 'authorized@example.com')

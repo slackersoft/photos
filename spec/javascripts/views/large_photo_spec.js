@@ -73,4 +73,23 @@ describe("views.LargePhoto", function () {
       });
     });
   });
+
+  describe("clicking to remove a tag", function () {
+    beforeEach(function () {
+      model.set({tags: ['foo', 'bar', 'baz']});
+      spyOn(model, 'removeTag');
+    });
+
+    it("should prevent default", function () {
+      var click = jQuery.Event('click');
+      view.$('.remove_tag:eq(1)').trigger(click);
+      expect(click.isDefaultPrevented()).toEqual(true);
+    });
+
+
+    it("should tell the model to remove the specified tag", function () {
+      view.$('.remove_tag:eq(1)').click();
+      expect(model.removeTag).toHaveBeenCalledWith('bar');
+    });
+  });
 });

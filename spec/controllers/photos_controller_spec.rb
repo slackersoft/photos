@@ -57,4 +57,52 @@ describe PhotosController do
       end
     end
   end
+
+  describe "#remove_tag" do
+    let(:photo) { photos(:mushroom) }
+    let(:tag) { tags(:tag).name }
+
+    subject { xhr :post, :remove_tag, id: photo.id, tag: tag }
+
+    describe "when signed in as an authorized user" do
+      before do
+        sign_in users(:authorized)
+      end
+
+      it "should remove the tag" do
+        lambda { subject }.should change { photo.reload.tags.size }.by(-1)
+        response.should be_success
+        photo.tags.should == []
+      end
+
+      it "should render the updated photo as json" do
+        subject
+        response.should be_success
+        photo_json = JSON.parse(response.body)
+        photo_json['tags'].should == []
+      end
+    end
+
+    context "when signed in as an unauthorized user" do
+      before do
+        sign_in users(:unauthorized)
+      end
+
+      it "should not add the tag and fail with unauthorized" do
+        lambda { subject }.should_not change { photo.reload.tags.size }
+        response.code.should == '403'
+      end
+    end
+
+    context "when not signed in" do
+      before do
+        sign_out :user
+      end
+
+      it "should not add the tag and fail with unauthorized" do
+        lambda { subject }.should_not change { photo.reload.tags.size }
+        response.code.should == '403'
+      end
+    end
+  end
 end

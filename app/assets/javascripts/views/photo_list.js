@@ -23,7 +23,7 @@
 
     openPhoto: function (e) {
       e.preventDefault();
-      Backbone.history.navigate($(e.currentTarget).attr('href'), { trigger: true });
+      Backbone.history.navigate(this.$(e.currentTarget).attr('href'), { trigger: true });
     }
   });
 }(PhotosApp));

@@ -107,7 +107,7 @@ describe Photo do
     end
 
     it "should add the tag" do
-      photo.tags.map(&:name).should == %w(hello)
+      photo.reload.tags.map(&:name).should == %w(hello)
     end
 
     context "when the tag already exists in the database" do
@@ -115,13 +115,35 @@ describe Photo do
 
       it "should not create another tag model" do
         subject
-        Tag.count.should == 1
+        Tag.count.should == 2
       end
     end
 
     context "when the photo is already associated with that tag" do
       it "should not add a duplicate entry" do
         lambda { photo.add_tag tag }.should_not change { photo.reload.tags.count }
+      end
+    end
+  end
+
+  describe "#remove_tag" do
+    let(:photo) { photos(:mushroom) }
+    let(:tag) { tags(:tag).name }
+
+    before do
+      photo.remove_tag tag
+    end
+
+    it "should remove the tag from the photo" do
+      photo.reload.tags.should == []
+      Tag.count.should == 1
+    end
+
+    context "when the photo is not associated with that tag" do
+      let(:tag) { 'foo' }
+
+      it "should not affect the tags for the photo" do
+        photo.reload.tags.map(&:name).should == %w(mario)
       end
     end
   end

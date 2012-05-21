@@ -7,7 +7,7 @@
     Tags:
     <ul>
       <% _(tags).each(function (tag) { %>
-        <li><%= tag %></li>
+        <li><%= tag %><a href="#" class="remove_tag">x</a></li>
       <% }); %>
     </ul>
     <% if (PhotosApp.currentUser.get('authorized')) { %>
