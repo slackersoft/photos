@@ -1,4 +1,4 @@
-(function (app, $) {
+(function (app) {
   app.views.Photo = Backbone.View.extend({
     template: app.templates.small_photo,
     className: 'photo',

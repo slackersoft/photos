@@ -76,9 +76,23 @@ describe("models.Photo", function () {
         });
       });
     });
+  });
 
-    describe("when the model doesn't have the specified tag", function () {
+  describe("#hasTag", function () {
+    beforeEach(function () {
+      model.set({tags: ['foo', 'bar']});
+    });
 
+    describe("when the model has the tag", function () {
+      it("should return true", function () {
+        expect(model.hasTag('foo')).toEqual(true);
+      });
+    });
+
+    describe("when the model does not have the tag", function () {
+      it("should return false", function () {
+        expect(model.hasTag('baz')).toEqual(false);
+      });
     });
   });
 });

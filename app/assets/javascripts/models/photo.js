@@ -23,6 +23,10 @@
         type: 'POST',
         data: { tag: tag }
       }).done(_.bind(this.set, this));
+    },
+
+    hasTag: function (tag) {
+      return _(this.get('tags')).contains(tag);
     }
   });
 }(PhotosApp));
