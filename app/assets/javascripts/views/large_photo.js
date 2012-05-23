@@ -5,7 +5,8 @@
 
     events: {
       'click .add_tag': 'addTag',
-      'click .remove_tag': 'removeTag'
+      'click .remove_tag': 'removeTag',
+      'click .tags li': 'viewTag'
     },
 
     initialize: function () {
@@ -29,6 +30,11 @@
       e.preventDefault();
       var tagEl = this.$(e.currentTarget).closest('li');
       this.model.removeTag(tagEl.text().replace(/x$/, ''));
+    },
+
+    viewTag: function (e) {
+      var tagEl = this.$(e.currentTarget).closest('li');
+      Backbone.history.navigate('/' + tagEl.text().replace(/x$/, ''), {trigger: true});
     }
   });
 }(PhotosApp));

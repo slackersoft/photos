@@ -40,11 +40,23 @@ describe("Router", function () {
     describe("when the fancybox is closed", function () {
       beforeEach(function () {
         router.photo(1);
-        jQuery.fancybox.mostRecentCall.args[1].afterClose();
       });
 
       it("should navigate to root", function () {
+        jQuery.fancybox.mostRecentCall.args[1].afterClose();
         expect(Backbone.history.navigate).toHaveBeenCalledWith('');
+      });
+
+      describe("when the router is closing the fancybox by viewing tags", function () {
+        beforeEach(function () {
+          jQuery.fancybox.close = jasmine.createSpy('close');
+          router.tag('foo');
+        });
+
+        it("should not navigate to root", function () {
+          jQuery.fancybox.mostRecentCall.args[1].afterClose();
+          expect(Backbone.history.navigate).not.toHaveBeenCalled();
+        });
       });
     });
 

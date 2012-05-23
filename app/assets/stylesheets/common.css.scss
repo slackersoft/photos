@@ -95,6 +95,8 @@ h3 {
     @include rounded(10px);
     @include bg_gradient(top, #00CC00, #009900);
     padding: 2px 6px 2px 12px;
+    cursor: pointer;
+    color: black;
   }
 }
 
@@ -121,6 +123,7 @@ h3 {
   color: black;
   &:hover {
     text-decoration: none;
+    font-weight: bold;
   }
   &:visited {
     color: black;

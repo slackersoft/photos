@@ -1,4 +1,13 @@
 (function (app, $) {
+  var fancyBoxIsOpen = false;
+
+  var afterClose = function () {
+    if (fancyBoxIsOpen) {
+      fancyBoxIsOpen = false;
+      Backbone.history.navigate('');
+    }
+  };
+
   app.Router = Backbone.Router.extend({
     routes: {
       '': 'root',
@@ -7,6 +16,7 @@
     },
 
     root: function () {
+      fancyBoxIsOpen = false;
       $.fancybox.close();
       app.photoList.clearFilters();
     },
@@ -15,17 +25,15 @@
       var model = PhotosApp.photos.get(photoId);
       if (model) {
         var view = new app.views.LargePhoto({model: model});
-        $.fancybox(view.render().$el, {
-          afterClose: function () {
-            Backbone.history.navigate('');
-          }
-        });
+        $.fancybox(view.render().$el, { afterClose: afterClose });
+        fancyBoxIsOpen = true;
       } else {
         Backbone.history.navigate('');
       }
     },
 
     tag: function (tagName) {
+      fancyBoxIsOpen = false;
       $.fancybox.close();
       app.photoList.showTag(tagName);
     }

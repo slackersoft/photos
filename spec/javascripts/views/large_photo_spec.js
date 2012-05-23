@@ -92,4 +92,15 @@ describe("views.LargePhoto", function () {
       expect(model.removeTag).toHaveBeenCalledWith('bar');
     });
   });
+
+  describe("clicking a tag", function () {
+    beforeEach(function () {
+      model.set({tags: ['foo', 'bar']});
+      view.$('.tags li:last').click();
+    });
+
+    it("should navigate to the specified tag", function () {
+      expect(Backbone.history.navigate).toHaveBeenCalledWith('/bar', { trigger: true });
+    });
+  });
 });
