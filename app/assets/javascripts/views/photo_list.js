@@ -25,7 +25,7 @@
         }, this));
 
         if (this.$('.photo').length === 0) {
-          this.$el.append('<div class="no-photos">No photos have the tag "' + this.selectedTag + '"</div>')
+          this.$el.append('<div class="no-photos">No photos have the tag "' + this.selectedTag + '"</div>');
         }
       }
     },
