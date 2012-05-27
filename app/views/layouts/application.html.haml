@@ -24,4 +24,4 @@
     .scripts
       = javascript_include_tag "application"
       %script
-        window.PhotosApp.init(#{@photos.to_json.html_safe});
+        window.PhotosApp.init(#{@photos.to_json.html_safe}#{", #{current_user.to_json.html_safe}".html_safe if current_user.present?});
