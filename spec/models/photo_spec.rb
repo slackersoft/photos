@@ -96,6 +96,14 @@ describe Photo do
 
       it { should == true }
     end
+
+    context "when the photo has the tag with a different case" do
+      before do
+        photo.add_tag tag.upcase
+      end
+
+      it { should == true }
+    end
   end
 
   describe "#add_tag" do
@@ -114,14 +122,27 @@ describe Photo do
       let(:tag) { Tag.create(name: 'hello').name }
 
       it "should not create another tag model" do
-        subject
         Tag.count.should == 2
+      end
+
+      context "when the tag in the database has a different case" do
+        let(:tag) { Tag.create(name: 'hello').name.upcase }
+
+        it "should not create another tag model" do
+          Tag.count.should == 2
+        end
       end
     end
 
     context "when the photo is already associated with that tag" do
       it "should not add a duplicate entry" do
         lambda { photo.add_tag tag }.should_not change { photo.reload.tags.count }
+      end
+
+      context "when the existing tag is a different case" do
+        it "should not add a duplicate entry" do
+          lambda { photo.add_tag tag.upcase }.should_not change { photo.reload.tags.count }
+        end
       end
     end
   end
@@ -137,6 +158,15 @@ describe Photo do
     it "should remove the tag from the photo" do
       photo.reload.tags.should == []
       Tag.count.should == 1
+    end
+
+    context "when the tag associated with the photo has a different case" do
+      let(:tag) { tags(:tag).name.upcase }
+
+      it "should remove the tag from the photo" do
+        photo.reload.tags.should == []
+        Tag.count.should == 1
+      end
     end
 
     context "when the photo is not associated with that tag" do

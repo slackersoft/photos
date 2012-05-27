@@ -10,4 +10,14 @@ class Tag < ActiveRecord::Base
       super
     end
   end
+
+  def self.find_or_create_by_name(tag_name)
+    tag = named(tag_name)
+    tag = tag.empty? ? Tag.create(name: tag_name) : tag.first
+    tag
+  end
+
+  def self.named(tag_name)
+    where ['tags.name ilike ?', tag_name]
+  end
 end

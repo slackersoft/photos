@@ -41,7 +41,7 @@ class Photo < ActiveRecord::Base
   end
 
   def has_tag?(tag_name)
-    tag_names().include? tag_name
+    tag_names.map(&:downcase).include? tag_name.downcase
   end
 
   def add_tag(tag_name)
@@ -52,7 +52,7 @@ class Photo < ActiveRecord::Base
   end
 
   def remove_tag(tag_name)
-    self.tags.delete(Tag.where(name: tag_name))
+    self.tags.delete(Tag.named(tag_name))
     save!
   end
 
