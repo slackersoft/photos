@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe User do
+  describe "validations" do
+    it { should validate_presence_of(:email) }
+  end
+
   describe ".find_for_open_id" do
     subject do
       User.find_for_open_id(auth_hash)
@@ -35,6 +39,23 @@ describe User do
       it "should return the created user" do
         subject.should == User.last
       end
+    end
+  end
+
+  describe "#display_name" do
+    let(:user) { create(:user, name: name) }
+    subject { user.display_name }
+
+    context "when the user has a name" do
+      let(:name) { 'Foo Bar' }
+
+      it { should == name }
+    end
+
+    context "when the user does not have a name" do
+      let(:name) { nil }
+
+      it { should == user.email }
     end
   end
 end

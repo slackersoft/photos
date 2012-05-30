@@ -10,7 +10,7 @@
         %h1 Gregg and Jen's Photos
         - if current_user
           .signed_in
-            Hello #{current_user.email}
+            Hello #{current_user.display_name}
             = link_to "sign out", destroy_session_path
         - else
           .sign_in

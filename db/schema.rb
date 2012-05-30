@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511014001) do
+ActiveRecord::Schema.define(:version => 20120530150856) do
 
   create_table "photos", :force => true do |t|
     t.string   "name"
@@ -44,9 +44,10 @@ ActiveRecord::Schema.define(:version => 20120511014001) do
   add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
-    t.string  "email"
+    t.string  "email",      :null => false
     t.boolean "authorized"
     t.boolean "admin"
+    t.string  "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
