@@ -36,7 +36,7 @@
     },
 
     showTag: function (tag) {
-      this.selectedTag = tag;
+      this.selectedTag = tag.toLowerCase();
       this.render();
     },
 

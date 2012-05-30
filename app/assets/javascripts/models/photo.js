@@ -26,7 +26,9 @@
     },
 
     hasTag: function (tag) {
-      return _(this.get('tags')).contains(tag);
+      return _(this.get('tags')).any(function (associatedTag) {
+        return associatedTag.toLowerCase() === tag;
+      });
     }
   });
 }(PhotosApp));

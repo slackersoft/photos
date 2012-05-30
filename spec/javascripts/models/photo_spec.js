@@ -80,12 +80,16 @@ describe("models.Photo", function () {
 
   describe("#hasTag", function () {
     beforeEach(function () {
-      model.set({tags: ['foo', 'bar']});
+      model.set({tags: ['foo', 'Bar']});
     });
 
     describe("when the model has the tag", function () {
       it("should return true", function () {
         expect(model.hasTag('foo')).toEqual(true);
+      });
+
+      it("should be true when the associated tag is a different case", function () {
+        expect(model.hasTag('bar')).toEqual(true);
       });
     });
 

@@ -71,7 +71,7 @@ describe("views.PhotoList", function () {
     beforeEach(function () {
       collection.reset([jasmine.photoJson(1), jasmine.photoJson(2)]);
       collection.at(0).set({tags: ['foo', 'bar']});
-      view.showTag('foo');
+      view.showTag('Foo');
     });
 
     it("should only render photos that are associated with the specified tag", function () {
