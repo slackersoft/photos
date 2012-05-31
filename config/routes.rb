@@ -12,6 +12,9 @@ Photos::Application.routes.draw do
       post :remove_tag
     end
   end
+
+  resource :account, :only => [:show, :update]
+
   match "/:tag_name" => "tags#show"
   root :to => "roots#index"
 end

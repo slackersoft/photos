@@ -1,0 +1,9 @@
+= form_for current_user, :url => account_path do |f|
+  %fieldset
+    = f.label :email
+    .email= current_user.email
+  %fieldset
+    = f.label :name
+    = f.text_field :name
+
+  = f.submit 'Update'
