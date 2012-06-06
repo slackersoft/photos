@@ -7,11 +7,16 @@
     Tags:
     <ul>
       <% _(tags).each(function (tag) { %>
-        <li><%= tag %><a href="#" class="remove_tag">x</a></li>
+        <li><%= tag %><% if (PhotosApp.currentUser.canManageTags()) { %><a href="#" class="remove_tag">x</a><% } %></li>
       <% }); %>
     </ul>
-    <% if (PhotosApp.currentUser.get('authorized')) { %>
+    <% if (PhotosApp.currentUser.canManageTags()) { %>
       <a href="#" class="add_tag">+</a>
     <% } %>
   </div>
 </div>
+<% if (PhotosApp.currentUser.canManagePhotos()) { %>
+  <div class="administration">
+    <a href="delete" class="delete">delete</a>
+  </div>
+<% } %>

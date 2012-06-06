@@ -15,6 +15,12 @@
       ':tag': 'tag'
     },
 
+    initialize: function () {
+      app.photos.on('destroy', function () {
+        $.fancybox.close();
+      });
+    },
+
     root: function () {
       fancyBoxIsOpen = false;
       $.fancybox.close();

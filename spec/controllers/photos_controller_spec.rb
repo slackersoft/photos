@@ -10,6 +10,44 @@ describe PhotosController do
     end
   end
 
+  describe "#delete" do
+    let(:photo) { photos(:mohawk) }
+    subject { xhr :delete, :destroy, id: photo.id }
+
+    context "when signed in as an admin user" do
+      before do
+        sign_in users(:admin)
+      end
+
+      it "should delete the photo" do
+        lambda { subject }.should change { Photo.count }.by(-1)
+        response.should be_success
+      end
+    end
+
+    context "when signed in as a non-admin user" do
+      before do
+        sign_in users(:authorized)
+      end
+
+      it "should not delete the photo and return unauthorized" do
+        lambda { subject }.should_not change { Photo.count }
+        response.code.should == '403'
+      end
+    end
+
+    context "when not signed in" do
+      before do
+        sign_out :user
+      end
+
+      it "should not delete the photo and return unauthorized" do
+        lambda { subject }.should_not change { Photo.count }
+        response.code.should == '403'
+      end
+    end
+  end
+
   describe "#add_tag" do
     let(:photo) { photos(:mohawk) }
     let(:tag) { 'hi' }

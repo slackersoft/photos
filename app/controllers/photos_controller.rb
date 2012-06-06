@@ -3,6 +3,15 @@ class PhotosController < ApplicationController
     @photos = Photo.for_display
   end
 
+  def destroy
+    if current_user && current_user.admin
+      Photo.where(id: params[:id]).destroy_all
+      head :ok
+    else
+      head 403
+    end
+  end
+
   def add_tag
     if current_user && current_user.authorized
       photo = Photo.find(params[:id])

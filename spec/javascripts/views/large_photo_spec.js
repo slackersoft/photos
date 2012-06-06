@@ -25,51 +25,67 @@ describe("views.LargePhoto", function () {
     beforeEach(function () {
       spyOn(window, 'prompt');
       spyOn(model, 'addTag');
-      PhotosApp.currentUser = new PhotosApp.models.User({authorized: true});
-      view.render();
     });
 
-    it("should prevent default", function () {
-      var click = jQuery.Event('click');
-      view.$('.add_tag').trigger(click);
-      expect(click.isDefaultPrevented()).toEqual(true);
-    });
-
-    it("should prompt the user for a tag", function () {
-      view.$('.add_tag').click();
-      expect(window.prompt).toHaveBeenCalledWith('What tag do you want to add?');
-    });
-
-    describe("when the user enters a tag", function () {
+    describe("when the user can manage tags", function () {
       beforeEach(function () {
-        window.prompt.andReturn('hi');
+        PhotosApp.currentUser = new PhotosApp.models.User({authorized: true});
+        view.render();
       });
 
-      it("should add a tag to the model", function () {
+      it("should prevent default", function () {
+        var click = jQuery.Event('click');
+        view.$('.add_tag').trigger(click);
+        expect(click.isDefaultPrevented()).toEqual(true);
+      });
+
+      it("should prompt the user for a tag", function () {
         view.$('.add_tag').click();
-        expect(model.addTag).toHaveBeenCalledWith('hi');
+        expect(window.prompt).toHaveBeenCalledWith('What tag do you want to add?');
+      });
+
+      describe("when the user enters a tag", function () {
+        beforeEach(function () {
+          window.prompt.andReturn('hi');
+        });
+
+        it("should add a tag to the model", function () {
+          view.$('.add_tag').click();
+          expect(model.addTag).toHaveBeenCalledWith('hi');
+        });
+      });
+
+      describe("when the user enters a blank tag", function () {
+        beforeEach(function () {
+          window.prompt.andReturn('');
+          view.$('.add_tag').click();
+        });
+
+        it("should not add a new tag", function () {
+          expect(model.addTag).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("when the user cancels adding a tag", function () {
+        beforeEach(function () {
+          window.prompt.andReturn(null);
+          view.$('.add_tag').click();
+        });
+
+        it("should not add a new tag", function () {
+          expect(model.addTag).not.toHaveBeenCalled();
+        });
       });
     });
 
-    describe("when the user enters a blank tag", function () {
+    describe("when the user can't manage tags", function () {
       beforeEach(function () {
-        window.prompt.andReturn('');
-        view.$('.add_tag').click();
+        PhotosApp.currentUser = new PhotosApp.models.User({authorized: false});
+        view.render();
       });
 
-      it("should not add a new tag", function () {
-        expect(model.addTag).not.toHaveBeenCalled();
-      });
-    });
-
-    describe("when the user cancels adding a tag", function () {
-      beforeEach(function () {
-        window.prompt.andReturn(null);
-        view.$('.add_tag').click();
-      });
-
-      it("should not add a new tag", function () {
-        expect(model.addTag).not.toHaveBeenCalled();
+      it("should not have a link to click", function () {
+        expect(view.$('.add_tag').length).toEqual(0);
       });
     });
   });
@@ -80,16 +96,34 @@ describe("views.LargePhoto", function () {
       spyOn(model, 'removeTag');
     });
 
-    it("should prevent default", function () {
-      var click = jQuery.Event('click');
-      view.$('.remove_tag:eq(1)').trigger(click);
-      expect(click.isDefaultPrevented()).toEqual(true);
+    describe("when the user can manage tags", function () {
+      beforeEach(function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({authorized: true});
+        view.render();
+      });
+
+      it("should prevent default", function () {
+        var click = jQuery.Event('click');
+        view.$('.remove_tag:eq(1)').trigger(click);
+        expect(click.isDefaultPrevented()).toEqual(true);
+      });
+
+
+      it("should tell the model to remove the specified tag", function () {
+        view.$('.remove_tag:eq(1)').click();
+        expect(model.removeTag).toHaveBeenCalledWith('bar');
+      });
     });
 
+    describe("when the user can't manage tags", function () {
+      beforeEach(function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({authorized: false});
+        view.render();
+      });
 
-    it("should tell the model to remove the specified tag", function () {
-      view.$('.remove_tag:eq(1)').click();
-      expect(model.removeTag).toHaveBeenCalledWith('bar');
+      it("should not have a link to click", function () {
+        expect(view.$('.remove_tag').length).toEqual(0);
+      });
     });
   });
 
@@ -101,6 +135,42 @@ describe("views.LargePhoto", function () {
 
     it("should navigate to the specified tag", function () {
       expect(Backbone.history.navigate).toHaveBeenCalledWith('/bar', { trigger: true });
+    });
+  });
+
+  describe("deleting a photo", function () {
+    beforeEach(function () {
+      spyOn(model, 'destroy');
+    });
+
+    describe("when the user can manage photos", function () {
+      beforeEach(function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({admin: true});
+        view.render();
+      });
+
+      it("should prevent default", function () {
+        var click = jQuery.Event('click');
+        view.$('.delete').trigger(click);
+        expect(click.isDefaultPrevented()).toEqual(true);
+      });
+
+
+      it("should tell the model to remove the specified tag", function () {
+        view.$('.delete').click();
+        expect(model.destroy).toHaveBeenCalled();
+      });
+    });
+
+    describe("when the user can't manage photos", function () {
+      beforeEach(function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({authorized: true, admin: false});
+        view.render();
+      });
+
+      it("should not have a link to click", function () {
+        expect(view.$(".delete").length).toEqual(0);
+      });
     });
   });
 });

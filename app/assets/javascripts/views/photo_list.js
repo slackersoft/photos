@@ -6,6 +6,7 @@
 
     initialize: function () {
       this.collection.on('reset', this.render, this);
+      this.collection.on('destroy', this.render, this);
     },
 
     render: function () {

@@ -6,7 +6,7 @@ Photos::Application.routes.draw do
     get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_session
   end
 
-  resources :photos, :only => [:show] do
+  resources :photos, :only => [:show, :destroy] do
     member do
       post :add_tag
       post :remove_tag

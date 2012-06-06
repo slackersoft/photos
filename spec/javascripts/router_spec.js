@@ -1,9 +1,9 @@
 describe("Router", function () {
   var router;
   beforeEach(function () {
-    router = new PhotosApp.Router();
     PhotosApp.photos = new PhotosApp.collections.Photos();
     PhotosApp.photoList = new PhotosApp.views.PhotoList({collection: PhotosApp.photos});
+    router = new PhotosApp.Router();
   });
 
   describe("root", function () {
@@ -27,7 +27,7 @@ describe("Router", function () {
     beforeEach(function () {
       spyOn(jQuery, 'fancybox');
 
-      PhotosApp.photos = new PhotosApp.collections.Photos([
+      PhotosApp.photos.reset([
         jasmine.photoJson(1)
       ]);
     });
@@ -57,6 +57,17 @@ describe("Router", function () {
           jQuery.fancybox.mostRecentCall.args[1].afterClose();
           expect(Backbone.history.navigate).not.toHaveBeenCalled();
         });
+      });
+    });
+
+    describe("when the photo is destroyed", function () {
+      beforeEach(function () {
+        jQuery.fancybox.close = jasmine.createSpy('close');
+        PhotosApp.photos.trigger('destroy');
+      });
+
+      it("should close the fancy box", function () {
+        expect(jQuery.fancybox.close).toHaveBeenCalled();
       });
     });
 

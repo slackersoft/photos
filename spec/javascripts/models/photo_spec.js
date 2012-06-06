@@ -99,4 +99,16 @@ describe("models.Photo", function () {
       });
     });
   });
+
+  describe("#destroy", function () {
+    beforeEach(function () {
+      model.destroy();
+    });
+
+    it("should call the server to delete the photo", function () {
+      expect(mostRecentAjaxRequest()).not.toBeNull();
+      expect(mostRecentAjaxRequest().url).toEqual('/photos/13');
+      expect(mostRecentAjaxRequest().method).toEqual('DELETE');
+    });
+  });
 });
