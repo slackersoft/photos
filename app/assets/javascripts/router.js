@@ -4,7 +4,7 @@
   var afterClose = function () {
     if (fancyBoxIsOpen) {
       fancyBoxIsOpen = false;
-      Backbone.history.navigate('');
+      Backbone.history.navigate(app.photoList.selectedTag || '');
     }
   };
 

@@ -47,6 +47,17 @@ describe("Router", function () {
         expect(Backbone.history.navigate).toHaveBeenCalledWith('');
       });
 
+      describe("when the photoList was filtered", function () {
+        beforeEach(function () {
+          PhotosApp.photoList.selectedTag = 'foo';
+        });
+
+        it("should navigate to the tag", function () {
+          jQuery.fancybox.mostRecentCall.args[1].afterClose();
+          expect(Backbone.history.navigate).toHaveBeenCalledWith('foo');
+        });
+      });
+
       describe("when the router is closing the fancybox by viewing tags", function () {
         beforeEach(function () {
           jQuery.fancybox.close = jasmine.createSpy('close');
