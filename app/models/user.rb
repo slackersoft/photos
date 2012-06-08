@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+  has_many :sender_emails
+
   validates_presence_of :email
+
+  after_create :create_sender_email
 
   devise :omniauthable
 
@@ -14,5 +18,11 @@ class User < ActiveRecord::Base
 
   def display_name
     name || email
+  end
+
+  private
+
+  def create_sender_email
+    sender_emails.create address: email
   end
 end

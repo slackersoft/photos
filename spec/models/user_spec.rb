@@ -5,6 +5,19 @@ describe User do
     it { should validate_presence_of(:email) }
   end
 
+  describe "associations" do
+    it { should have_many(:sender_emails) }
+  end
+
+  describe "lifecycle callbacks" do
+    let(:user) { create(:user) }
+
+    it "should create a sender email for email" do
+      lambda { user }.should change{SenderEmail.count}.by(1)
+      SenderEmail.last.user.should == user
+    end
+  end
+
   describe ".find_for_open_id" do
     subject do
       User.find_for_open_id(auth_hash)

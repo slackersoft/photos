@@ -13,7 +13,9 @@ Photos::Application.routes.draw do
     end
   end
 
-  resource :account, :only => [:show, :update]
+  resource :account, :only => [:show, :update] do
+    resources :sender_emails, :only => [:create, :destroy]
+  end
 
   match "/:tag_name" => "tags#show"
   root :to => "roots#index"
