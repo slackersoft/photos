@@ -71,4 +71,10 @@ describe User do
       it { should == user.email }
     end
   end
+
+  describe ".authorized" do
+    it "should only return users who are authorized" do
+      User.authorized.should =~ [users(:admin), users(:authorized)]
+    end
+  end
 end

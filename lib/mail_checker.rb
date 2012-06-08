@@ -47,7 +47,7 @@ class MailChecker
     end
 
     def valid_sender?(mail)
-      %w(gregg@greggandjen.com jen@greggandjen.com).include? mail.from.first
+      User.authorized.collect(&:sender_emails).flatten.collect(&:address).include? mail.from.first
     end
 
     def extract_description(text_body)

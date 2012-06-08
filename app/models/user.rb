@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.authorized
+    where(authorized: true)
+  end
+
   def display_name
     name || email
   end
