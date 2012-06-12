@@ -27,7 +27,7 @@ env_options = if Rails.env.production?
 #  })
 else
   {
-    url: "/system/:attachment/:id/:style.:extension"
+    url: "/system/:rails_env/:attachment/:id/:style.:extension"
   }
 end
 

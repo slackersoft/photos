@@ -7,6 +7,7 @@ describe User do
 
   describe "associations" do
     it { should have_many(:sender_emails) }
+    it { should have_many(:photos) }
   end
 
   describe "lifecycle callbacks" do
@@ -75,6 +76,12 @@ describe User do
   describe ".authorized" do
     it "should only return users who are authorized" do
       User.authorized.should =~ [users(:admin), users(:authorized)]
+    end
+  end
+
+  describe ".with_email" do
+    it "should return the user who owns the specified sender email" do
+      User.with_email('still@unauthorized.com').should == users(:unauthorized)
     end
   end
 end

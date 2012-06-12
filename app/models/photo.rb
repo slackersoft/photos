@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
   has_attached_file :image, ::PAPERCLIP_OPTIONS
 
   has_and_belongs_to_many :tags
+  belongs_to :user
 
   after_post_process :save_dimensions
 

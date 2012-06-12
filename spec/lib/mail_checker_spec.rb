@@ -69,6 +69,11 @@ describe MailChecker do
 
           it { should change { Photo.count }.by(1) }
 
+          it "should associate the photo with the sender" do
+            subject.call
+            Photo.last.user.should == users(:authorized)
+          end
+
           it "should delete the mail" do
             subject.call
 

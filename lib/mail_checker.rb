@@ -5,8 +5,9 @@ class MailChecker
       Mail.all(delete_after_find: Rails.env.production? || Rails.env.test?).each do |mail|
         message_count += 1
         log("Got message with subject: '#{mail.subject}' from:#{mail.from.first} with message_id: #{mail.message_id}")
+        sender = find_sender(mail)
 
-        if valid_sender?(mail) && Photo.where(original_message_id: mail.message_id).count == 0
+        if sender.present? && Photo.where(original_message_id: mail.message_id).count == 0
           image_attachment = find_image_attachment(mail.attachments)
 
           if image_attachment.present?
@@ -15,7 +16,7 @@ class MailChecker
             description = extract_description mail.text_part.try(:body).to_s
 
             log("Found attachment, creating photo #{photo_name}")
-            pic = Photo.create!(name: photo_name, description: description, image: image_attachment, original_message_id: mail.message_id)
+            pic = Photo.create!(name: photo_name, description: description, image: image_attachment, original_message_id: mail.message_id, user: sender)
 
             from_subject[:tags].each do |tag|
               pic.add_tag(tag)
@@ -46,8 +47,8 @@ class MailChecker
       end
     end
 
-    def valid_sender?(mail)
-      User.authorized.collect(&:sender_emails).flatten.collect(&:address).include? mail.from.first
+    def find_sender(mail)
+      User.authorized.with_email mail.from.first
     end
 
     def extract_description(text_body)

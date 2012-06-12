@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :sender_emails
+  has_many :photos
 
   validates_presence_of :email
 
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
 
   def self.authorized
     where(authorized: true)
+  end
+
+  def self.with_email(email_address)
+    joins(:sender_emails).where(['sender_emails.address = ?', email_address]).first
   end
 
   def display_name

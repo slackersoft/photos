@@ -11,7 +11,7 @@ describe PhotosController do
   end
 
   describe "#delete" do
-    let(:photo) { photos(:mohawk) }
+    let!(:photo) { create(:photo) }
     subject { xhr :delete, :destroy, id: photo.id }
 
     context "when signed in as an admin user" do

@@ -9,6 +9,7 @@ describe Photo do
 
   describe "associations" do
     it { should have_and_belong_to_many(:tags) }
+    it { should belong_to(:user) }
   end
 
   it "should have a working factory" do

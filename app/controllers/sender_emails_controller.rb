@@ -8,7 +8,6 @@ class SenderEmailsController < ApplicationController
 
   def destroy
     emails = current_user.sender_emails.where(id: params[:id])
-    p current_user.sender_emails, emails
     emails.destroy_all
     redirect_to account_path
   end
