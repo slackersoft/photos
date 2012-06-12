@@ -7,7 +7,7 @@
   %body
     .header
       .wrapper
-        %h1 Gregg and Jen's Photos
+        %h1= link_to "Gregg and Jen's Photos", root_path
         - if current_user
           .signed_in
             Hello

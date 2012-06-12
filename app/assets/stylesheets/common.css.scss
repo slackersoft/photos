@@ -30,6 +30,15 @@ body {
   h1 {
     display: inline-block;
     width: 700px;
+
+    a {
+      color: black;
+
+      &:hover, &:active {
+        color: black;
+        text-decoration: none;
+      }
+    }
   }
 
   .sign_in, .signed_in {
