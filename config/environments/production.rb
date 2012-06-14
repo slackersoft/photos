@@ -59,6 +59,6 @@ Photos::Application.configure do
   config.active_support.deprecation = :notify
 
   config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Speak friend, and enter") do |u, p|
-    u == 'photos' && p == 'greggandjen'
+    u == ENV['BASIC_AUTH_USER'] && p == ENV['BASIC_AUTH_PASSWORD']
   end
 end
