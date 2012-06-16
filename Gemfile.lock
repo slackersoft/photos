@@ -101,11 +101,9 @@ GEM
       rubyzip
     heroku-api (0.2.5)
       excon (~> 0.14.0)
-    heroku_san (3.0.2)
-      activesupport
+    heroku_san (1.3.0)
       heroku (>= 2)
-      heroku-api (>= 0.1.2)
-      rake
+      rails (>= 2)
     highline (1.6.13)
     hike (1.2.1)
     hpricot (0.8.6)
@@ -270,7 +268,7 @@ DEPENDENCIES
   haml-rails
   headless
   heroku
-  heroku_san
+  heroku_san (= 1.3.0)
   hpricot
   jasmine!
   jasmine-core
