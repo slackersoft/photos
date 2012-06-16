@@ -37,7 +37,7 @@ class MailChecker
     def find_image_attachment(attachments)
       attachments.reduce(nil) do |found, attachment|
         if found.nil? && attachment.content_type =~ /^image\//
-          a = StringIO.new(attachment.body.decoded)
+          a = AttachmentFile.new(attachment.body.decoded)
           a.content_type = attachment.content_type
           a.original_filename = attachment.filename
           a

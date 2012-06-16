@@ -8,7 +8,7 @@
     .header
       .wrapper
         %h1= link_to "Gregg and Jen's Photos", root_path
-        - if current_user
+        - if current_user.present?
           .signed_in
             Hello
             = link_to current_user.display_name, account_path

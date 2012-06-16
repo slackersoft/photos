@@ -16,4 +16,6 @@ RSpec.configure do |config|
   config.global_fixtures = :all
 
   config.use_transactional_fixtures = true
+
+  ::FACTORY_BASE_NUMBER = 1000
 end

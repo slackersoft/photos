@@ -34,7 +34,7 @@ class Photo < ActiveRecord::Base
 
   def reset_dimensions!
     converted_styles.each do |style|
-      geo = Paperclip::Geometry.from_file(image.to_file(style))
+      geo = Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image.styles[style]))
       send("#{style}_width=", geo.width)
       send("#{style}_height=", geo.height)
     end

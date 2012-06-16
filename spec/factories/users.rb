@@ -1,10 +1,6 @@
 FactoryGirl.define do
-  sequence :email do |n|
-    "jimbob#{n}@example.com"
-  end
-
   factory :user do
-    email
+    sequence(:email) { |n| "jimbob#{FACTORY_BASE_NUMBER + n}@example.com" }
     authorized false
     admin false
   end

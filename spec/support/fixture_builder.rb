@@ -6,6 +6,7 @@ FixtureBuilder.configure do |fbuilder|
 
   # now declare objects
   fbuilder.factory do
+    ::FACTORY_BASE_NUMBER = 0
     FileUtils.rm_rf Rails.root.join('public', 'system', 'test').to_s
     Rails.env = 'test'
     mohawk = create(:photo)
@@ -16,9 +17,5 @@ FixtureBuilder.configure do |fbuilder|
     @unauthorized.sender_emails.create(address: 'still@unauthorized.com')
     @authorized = create(:authorized, email: 'authorized@example.com')
     @admin = create(:admin, email: 'admin@example.com')
-  end
-
-  FactoryGirl.sequences.each do |seq|
-    seq.instance_variable_set(:@value, 1000)
   end
 end

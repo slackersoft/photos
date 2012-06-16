@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.6'
 
 group :assets do
   gem 'sass-rails'
@@ -32,7 +32,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'jasmine', github: 'pivotal/jasmine-gem'
   gem 'jasmine-core'
-  gem "headless", "0.1.0"
+  gem "headless"
 
   gem 'jshint_on_rails'
   gem 'shoulda'
@@ -46,7 +46,3 @@ group :development do
   gem "ruby_parser"
   gem 'ruby-debug-base19x'
 end
-
-group :test do
-end
-

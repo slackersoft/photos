@@ -1,9 +1,5 @@
 FactoryGirl.define do
-  sequence :name do |n|
-    "hiya#{n}"
-  end
-
   factory :tag do
-    name
+    sequence(:name) { |n| "hiya#{FACTORY_BASE_NUMBER + n}" }
   end
 end
