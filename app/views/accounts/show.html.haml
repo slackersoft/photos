@@ -21,3 +21,14 @@
   = f.label :address, "New Email"
   = f.text_field :address
   = f.submit "Add"
+
+%h3 Notifications
+= form_for [:account, current_user.notification_preference] do |f|
+  %fieldset
+    = f.check_box :send_notifications
+    = f.label :send_notifications, "Notify me about new photos"
+  %ul.notification_schedule
+    -f.object.schedule_options.each do |option|
+      %li
+        = f.radio_button :schedule, option
+        = f.label "schedule_#{option}", option.to_s.titleize

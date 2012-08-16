@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608144908) do
+ActiveRecord::Schema.define(:version => 20120814151558) do
+
+  create_table "notification_preferences", :force => true do |t|
+    t.boolean  "send_notifications", :null => false
+    t.string   "schedule"
+    t.integer  "user_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "photos", :force => true do |t|
     t.string   "name"
@@ -31,31 +39,39 @@ ActiveRecord::Schema.define(:version => 20120608144908) do
   end
 
   create_table "photos_tags", :force => true do |t|
-    t.integer "photo_id"
-    t.integer "tag_id"
+    t.integer  "photo_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "photos_tags", ["photo_id"], :name => "index_photos_tags_on_photo_id"
   add_index "photos_tags", ["tag_id"], :name => "index_photos_tags_on_tag_id"
 
   create_table "sender_emails", :force => true do |t|
-    t.integer "user_id"
-    t.string  "address"
+    t.integer  "user_id"
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sender_emails", ["user_id"], :name => "index_sender_emails_on_user_id"
 
   create_table "tags", :force => true do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
-    t.string  "email",      :null => false
-    t.boolean "authorized"
-    t.boolean "admin"
-    t.string  "name"
+    t.string   "email",      :null => false
+    t.boolean  "authorized"
+    t.boolean  "admin"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

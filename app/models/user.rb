@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   after_create :create_sender_email
 
   devise :omniauthable
+  notification_recipient
 
   def self.find_for_open_id(access_token, signed_in_resource=nil)
     data = access_token.info

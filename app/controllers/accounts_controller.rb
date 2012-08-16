@@ -2,6 +2,7 @@ class AccountsController < ApplicationController
   before_filter :authenticate_user!
 
   def show
+    current_user.build_notification_preference unless current_user.notification_preference
   end
 
   def update
