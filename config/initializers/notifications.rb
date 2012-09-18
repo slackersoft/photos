@@ -1,1 +1,1 @@
-ActiveRecord::Base.send(:extend, Notification::ActiveRecord)
+ActiveRecord::Base.send(:extend, LetMeKnow::ActiveRecord)

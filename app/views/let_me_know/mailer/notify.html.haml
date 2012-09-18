@@ -1,0 +1,7 @@
+Hi #{@recipient.name},
+%br
+
+#{@subject.user.name} has added a new #{@subject_type}.
+%br
+=image_tag @subject.image.url(:thumb)
+=link_to "See more", root_url

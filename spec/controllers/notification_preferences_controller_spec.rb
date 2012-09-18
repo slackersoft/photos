@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe NotificationPreferencesController do
   describe "#create" do
-    subject { post :create, notification_preference: { send_notifications: '1' } }
+    subject { post :create, notification_preference: { send_notifications: '1', schedule: 'immediately' } }
 
     context "when not logged in" do
       before do
@@ -28,7 +28,7 @@ describe NotificationPreferencesController do
   end
 
   describe "#update" do
-    subject { put :update, notification_preference: { send_notifications: '1' } }
+    subject { put :update, notification_preference: { send_notifications: '1', schedule: 'immediately' } }
 
     context "when not logged in" do
       before do

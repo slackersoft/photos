@@ -22,3 +22,4 @@ development:
 test:
   monitor_mode: false
   developer_mode: false
+  agent_enabled: false

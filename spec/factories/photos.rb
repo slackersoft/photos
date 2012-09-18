@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :photo do
+    association :user
     image File.new(Rails.root.join('spec', 'fixtures', 'files', 'mohawk.jpeg'))
     name 'Mohawk'
     description "Two feet tall"

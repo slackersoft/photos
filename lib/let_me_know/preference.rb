@@ -1,0 +1,41 @@
+module LetMeKnow
+  class Preference < ::ActiveRecord::Base
+    self.table_name = "notification_preferences"
+
+    belongs_to :owner, :polymorphic => true
+
+    validates_presence_of :owner
+    validates_inclusion_of :send_notifications, in: [true, false]
+
+    def self.schedule_options
+      [:immediately, :daily, :weekly]
+    end
+
+    validates_inclusion_of :schedule, in: schedule_options, allow_nil: true
+    before_validation :clear_schedule, unless: :send_notifications
+    before_validation :symbolize_schedule
+    validate :has_schedule, if: :send_notifications
+
+    def schedule_options
+      self.class.schedule_options
+    end
+
+    def immediate?
+      schedule == :immediately
+    end
+
+    private
+
+    def clear_schedule
+      self.schedule = nil
+    end
+
+    def symbolize_schedule
+      self.schedule = schedule.to_sym unless schedule.nil?
+    end
+
+    def has_schedule
+      errors.add(:schedule, "can't be blank when receiving notifications") unless schedule.present?
+    end
+  end
+end

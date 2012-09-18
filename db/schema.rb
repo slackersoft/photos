@@ -11,14 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814151558) do
+ActiveRecord::Schema.define(:version => 20120820150410) do
 
   create_table "notification_preferences", :force => true do |t|
     t.boolean  "send_notifications", :null => false
     t.string   "schedule"
-    t.integer  "user_id"
+    t.integer  "owner_id"
+    t.string   "owner_type"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "subject_id",                 :null => false
+    t.string   "subject_type",               :null => false
+    t.integer  "notification_preference_id"
+    t.datetime "sent_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "photos", :force => true do |t|

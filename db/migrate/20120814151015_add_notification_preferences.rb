@@ -3,7 +3,8 @@ class AddNotificationPreferences < ActiveRecord::Migration
     create_table :notification_preferences do |t|
       t.boolean :send_notifications, null: false
       t.string :schedule
-      t.integer :user_id
+      t.integer :owner_id
+      t.string :owner_type
       t.timestamps
     end
   end
