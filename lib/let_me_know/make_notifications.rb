@@ -1,8 +1,9 @@
 module LetMeKnow
   class MakeNotifications
     def after_commit(subject)
-      Preference.where(send_notification: true).find_each do |pref|
-        Notification.create(subject: subject, recipient: pref.owner)
+      Preference.where(send_notifications: true).find_each do |pref|
+        next if pref.owner == subject.user
+        Notification.create(subject: subject, notification_preference: pref)
       end
     end
   end

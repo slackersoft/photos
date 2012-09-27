@@ -2,7 +2,8 @@ module LetMeKnow
   class Preference < ::ActiveRecord::Base
     self.table_name = "notification_preferences"
 
-    belongs_to :owner, :polymorphic => true
+    belongs_to :owner, polymorphic: true
+    has_many :notifications, foreign_key: :notification_preference_id
 
     validates_presence_of :owner
     validates_inclusion_of :send_notifications, in: [true, false]

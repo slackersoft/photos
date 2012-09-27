@@ -4,6 +4,7 @@ module LetMeKnow
   describe Preference do
     describe "associations" do
       it { should belong_to(:owner) }
+      it { should have_many(:notifications) }
     end
 
     describe "validations" do

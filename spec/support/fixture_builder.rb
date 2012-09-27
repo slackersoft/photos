@@ -18,6 +18,7 @@ FixtureBuilder.configure do |fbuilder|
     @authorized = create(:authorized, email: 'authorized@example.com')
     @admin = create(:admin, email: 'admin@example.com')
 
-    @receive_notifications = create(:notification_preference, owner: @admin, send_notifications: true, schedule: :daily)
+    @admin.notification_preference.update_attributes(send_notifications: true, schedule: :daily)
+    @unauthorized.notification_preference.update_attributes(send_notifications: true, schedule: :daily)
   end
 end
