@@ -7,7 +7,7 @@ module LetMeKnow
 
     def notification_subject
       after_commit LetMeKnow::MakeNotifications.new
-      has_many :notifications, class_name: '::LetMeKnow::Notification', dependant: :destroy, as: :subject
+      has_many :notifications, class_name: '::LetMeKnow::Notification', dependent: :destroy, as: :subject
     end
   end
 end
