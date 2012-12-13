@@ -40,6 +40,11 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    aws-ses (0.4.4)
+      builder
+      mail (> 2.2.5)
+      mime-types
+      xml-simple
     bcrypt-ruby (3.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
@@ -255,6 +260,7 @@ DEPENDENCIES
   auto_tagger
   aws-s3
   aws-sdk
+  aws-ses
   bundler
   devise
   factory_girl_rails
