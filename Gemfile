@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.11'
 
 group :assets do
   gem 'sass-rails'
@@ -30,7 +30,7 @@ gem 'omniauth-openid'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'jasmine', github: 'pivotal/jasmine-gem'
+  gem 'jasmine'
   gem 'jasmine-core'
   gem "headless"
 
