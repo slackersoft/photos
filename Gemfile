@@ -44,5 +44,4 @@ group :development do
   gem "heroku_san", "1.3.0"
   gem "hpricot"
   gem "ruby_parser"
-  gem 'ruby-debug-base19x'
 end
