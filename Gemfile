@@ -12,7 +12,7 @@ end
 gem 'jquery-rails'
 
 gem "bundler"
-gem 'thin'
+gem 'unicorn'
 gem "auto_tagger"
 gem "json"
 gem "pg"
@@ -44,4 +44,5 @@ group :development do
   gem "heroku_san", "1.3.0"
   gem "hpricot"
   gem "ruby_parser"
+  gem "foreman"
 end
