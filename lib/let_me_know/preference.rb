@@ -4,6 +4,7 @@ module LetMeKnow
 
     belongs_to :owner, polymorphic: true
     has_many :notifications, foreign_key: :notification_preference_id
+    has_many :unsent_notifications, class_name: '::LetMeKnow::Notification', foreign_key: :notification_preference_id, conditions: { sent_at: nil }
 
     validates_presence_of :owner
     validates_inclusion_of :send_notifications, in: [true, false]

@@ -30,6 +30,10 @@ module LetMeKnow
     def send_notification
       return if sent?
       Mailer.notify(self).deliver!
+      sent!
+    end
+
+    def sent!
       update_attribute :sent_at, Time.now
     end
 

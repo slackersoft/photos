@@ -4,4 +4,5 @@ Hi #{@recipient.name},
 #{@subject.user.name} has added a new #{@subject_type}.
 %br
 =image_tag @subject.image.url(:thumb)
+%br
 =link_to "See more", root_url

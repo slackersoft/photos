@@ -1,8 +1,12 @@
 module LetMeKnow
   class PeriodicSender
     def self.send_notifications(schedule)
-      Notification.unsent.scheduled_as(schedule).find_each do |notification|
-        notification.send_notification
+      Preference.where(schedule: schedule).includes(:unsent_notifications).find_each do |pref|
+        next if pref.unsent_notifications.empty?
+        Mailer.notify_bulk(schedule, pref.unsent_notifications).deliver!
+        Notification.transaction do
+          pref.unsent_notifications.each(&:sent!)
+        end
       end
     end
   end

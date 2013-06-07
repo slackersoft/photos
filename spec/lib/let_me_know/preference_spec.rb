@@ -5,6 +5,7 @@ module LetMeKnow
     describe "associations" do
       it { should belong_to(:owner) }
       it { should have_many(:notifications) }
+      it { should have_many(:unsent_notifications) }
     end
 
     describe "validations" do

@@ -1,0 +1,13 @@
+Hi #{@recipient.name},
+%br
+
+New #{@subject_type.pluralize} have been added by #{@usernames.to_sentence}
+%br
+-@items.each do |subject|
+  #{subject.user.name} added:
+  %br
+  =image_tag subject.image.url(:thumb)
+
+%br
+%br
+=link_to "See more", root_url
