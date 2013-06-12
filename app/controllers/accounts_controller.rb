@@ -3,6 +3,11 @@ class AccountsController < ApplicationController
 
   def show
     current_user.build_notification_preference unless current_user.notification_preference
+    if flash[:form_errors] && flash[:form_errors][:notification_preference]
+      flash[:form_errors][:notification_preference].each do |attribute, errors|
+        errors.each { |err| current_user.notification_preference.errors.add(attribute, err) }
+      end
+    end
   end
 
   def update

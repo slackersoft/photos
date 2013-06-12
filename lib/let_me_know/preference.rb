@@ -23,7 +23,7 @@ module LetMeKnow
     end
 
     def immediate?
-      schedule == :immediately
+      schedule.to_sym == :immediately
     end
 
     private

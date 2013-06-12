@@ -15,7 +15,10 @@ Photos::Application.routes.draw do
 
   resource :account, :only => [:show, :update] do
     resources :sender_emails, :only => [:create, :destroy]
-    resource :notification_preferences, :only => [:create, :update]
+    namespace :let_me_know do
+      resource :preferences, :only => :create
+      resource :preference, :only => :update
+    end
   end
 
   match "/:tag_name" => "tags#show"

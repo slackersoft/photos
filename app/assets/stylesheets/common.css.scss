@@ -142,3 +142,12 @@ h3 {
 .edit_user {
   margin-bottom: 15px;
 }
+
+.errors {
+  color: red;
+}
+
+.field_with_errors {
+  display: inline-block;
+  border: 2px solid red;
+}

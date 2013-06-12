@@ -24,6 +24,9 @@
 
 %h3 Notifications
 = form_for [:account, current_user.notification_preference] do |f|
+  - unless f.object.errors.empty?
+    .errors
+      = f.object.errors.full_messages.join('<br/>')
   %fieldset
     = f.check_box :send_notifications
     = f.label :send_notifications, "Notify me about new photos"
@@ -32,3 +35,4 @@
       %li
         = f.radio_button :schedule, option
         = f.label "schedule_#{option}", option.to_s.titleize
+  = f.submit "Update Notification Preferences"
