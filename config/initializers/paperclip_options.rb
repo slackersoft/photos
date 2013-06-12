@@ -10,8 +10,8 @@ default_options = {
 default_s3_options = {
   storage: :s3,
   s3_credentials: {
-    access_key_id: ENV['S3_KEY'],
-    secret_access_key: ENV['S3_SECRET']
+    access_key_id: ENV['AMAZON_ACCESS_KEY'],
+    secret_access_key: ENV['AMAZON_SECRET_KEY']
   },
   s3_permissions: 'public-read',
   s3_protocol: 'https'
