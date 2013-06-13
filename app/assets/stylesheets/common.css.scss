@@ -43,9 +43,10 @@ body {
 
   .sign_in, .signed_in {
     float: right;
-    font-size: 10px;
+    font-size: 14px;
     text-align: right;
     vertical-align: top;
+    line-height: 50px;
   }
 }
 
@@ -139,8 +140,13 @@ h3 {
   }
 }
 
-.edit_user {
-  margin-bottom: 15px;
+.account_section {
+  margin: 0 15px 15px 0;
+  padding: 4px;
+  width:  300px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid gray;
 }
 
 .errors {
@@ -150,4 +156,10 @@ h3 {
 .field_with_errors {
   display: inline-block;
   border: 2px solid red;
+}
+
+fieldset {
+  border: none;
+  margin: 2px 0;
+  padding: 0;
 }

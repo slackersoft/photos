@@ -7,7 +7,6 @@
   %body
     .header
       .wrapper
-        %h1= link_to "Gregg and Jen's Photos", root_path
         - if current_user.present?
           .signed_in
             Hello
@@ -16,6 +15,7 @@
         - else
           .sign_in
             = link_to "sign in with google", user_omniauth_authorize_path(:google)
+        %h1= link_to "Gregg and Jen's Photos", root_path
     .content
       .wrapper
         = yield

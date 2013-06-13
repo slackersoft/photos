@@ -1,38 +1,42 @@
 %h2 Edit Account
+%hr
 
-= form_for current_user, :url => account_path do |f|
+= form_for current_user, :url => account_path, :html => { :class => 'account_section edit_user' } do |f|
+  %h3 Account Info
   %fieldset
     = f.label :name
     = f.text_field :name
 
   = f.submit 'Update'
 
-%h3 Email Addresses
-.email= current_user.email
+.account_section.email_addresses
+  %h3 Email Addresses
+  .email= current_user.email
 
-- current_user.sender_emails.each do |sender_email|
-  - unless sender_email.address == current_user.email
-    = form_for [:account, sender_email], method: :delete do |f|
-      .email
-        = sender_email.address
-        = f.submit "Delete"
+  - current_user.sender_emails.each do |sender_email|
+    - unless sender_email.address == current_user.email
+      = form_for [:account, sender_email], method: :delete do |f|
+        .email
+          = sender_email.address
+          = f.submit "Delete"
 
-= form_for [:account, current_user.sender_emails.build] do |f|
-  = f.label :address, "New Email"
-  = f.text_field :address
-  = f.submit "Add"
+  = form_for [:account, current_user.sender_emails.build] do |f|
+    = f.label :address, "New Email"
+    = f.text_field :address
+    = f.submit "Add"
 
-%h3 Notifications
-= form_for [:account, current_user.notification_preference] do |f|
-  - unless f.object.errors.empty?
-    .errors
-      = f.object.errors.full_messages.join('<br/>')
-  %fieldset
-    = f.check_box :send_notifications
-    = f.label :send_notifications, "Notify me about new photos"
-  %ul.notification_schedule
-    -f.object.schedule_options.each do |option|
-      %li
-        = f.radio_button :schedule, option
-        = f.label "schedule_#{option}", option.to_s.titleize
-  = f.submit "Update Notification Preferences"
+.account_section.notifications
+  %h3 Notifications
+  = form_for [:account, current_user.notification_preference] do |f|
+    - unless f.object.errors.empty?
+      .errors
+        = f.object.errors.full_messages.join('<br/>')
+    %fieldset
+      = f.check_box :send_notifications
+      = f.label :send_notifications, "Notify me about new photos"
+    %ul.notification_schedule
+      -f.object.schedule_options.each do |option|
+        %li
+          = f.radio_button :schedule, option
+          = f.label "schedule_#{option}", option.to_s.titleize
+    = f.submit "Update Notification Preferences"
