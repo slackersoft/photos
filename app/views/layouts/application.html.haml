@@ -3,7 +3,9 @@
   %head
     %title Photos
     = stylesheet_link_tag    "application"
+    = stylesheet_link_tag    "desktop", media: 'screen and (min-device-width:768px)'
     = csrf_meta_tags
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"}
   %body
     .header
       .wrapper

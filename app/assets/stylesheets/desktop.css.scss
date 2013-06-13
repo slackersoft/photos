@@ -1,0 +1,33 @@
+.wrapper {
+  max-width: 1200px;
+}
+
+.header {
+  height: 50px;
+
+  h1 {
+    width: 700px;
+  }
+
+  .sign_in, .signed_in {
+    font-size: 14px;
+    line-height: 50px
+  }
+}
+
+.footer {
+  padding: 30px 0;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 50px
+}
+
+h2 {
+  font-size: 40px
+}
+
+h3 {
+  font-size: 30px
+}
