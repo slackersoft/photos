@@ -1,8 +1,11 @@
 namespace :let_me_know do
-  [:daily, :weekly].each do |schedule|
-    desc "Send #{schedule} notifications"
-    task schedule =>:environment do
-      LetMeKnow::PeriodicSender.send_notifications(schedule)
-    end
+  desc "Send daily notifications"
+  task :daily => :environment do
+    LetMeKnow::PeriodicSender.send_notifications :daily
+  end
+
+  desc "Send weekly notifications"
+  task :weekly => :environment do
+    LetMeKnow::PeriodicSender.send_notifications :weekly if Date.today.sunday?
   end
 end
