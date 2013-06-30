@@ -11,6 +11,7 @@ class Photo < ActiveRecord::Base
   validates_uniqueness_of :original_message_id
 
   before_save :uniq_tags
+  notification_subject
 
   def self.for_display
     order('id desc')
