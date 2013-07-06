@@ -31,12 +31,15 @@ module LetMeKnow
       let(:notifications) do
         [
           Notification.new(subject: photos(:mohawk), notification_preference: preference),
-          Notification.new(subject: photos(:mushroom), notification_preference: preference)
+          Notification.new(subject: photos(:mushroom), notification_preference: preference),
+          Notification.new(subject: second_photo_for_user, notification_preference: preference)
         ]
       end
+      let(:second_photo_for_user) { create(:photo, user: photos(:mohawk).user, name: 'another one') }
       let(:recipient) { users(:unauthorized) }
       let(:preference) { create(:notification_preference, owner: recipient) }
       let(:schedule) { :daily }
+      let(:either_user_name_regex) { "(#{photos(:mohawk).user.name}|#{photos(:mushroom).user.name})" }
 
       subject { described_class.notify_bulk(schedule, notifications) }
 
@@ -44,7 +47,8 @@ module LetMeKnow
       its(:from) { should == %w(photos@greggandjen.com) }
       its(:to) { should == [recipient.email] }
       its(:body) do
-        should include("New photos have been added by")
+
+        should match(/^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/)
       end
 
       context "when sending from a weekly schedule" do

@@ -13,7 +13,7 @@ module LetMeKnow
     def notify_bulk(schedule, notifications)
       @recipient = notifications.first.recipient
       @items = notifications.collect(&:subject)
-      @usernames = @items.collect(&:user).collect(&:name)
+      @usernames = @items.collect(&:user).uniq.collect(&:name)
       @subject_type = normalize_type_name @items.first
       mail to: @recipient.email,
         subject: "New #{@subject_type.pluralize} added in the last #{schedule == :daily ? 'day' : 'week'}"
