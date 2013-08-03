@@ -16,7 +16,9 @@
             = link_to "sign out", destroy_session_path
         - else
           .sign_in
-            = link_to "sign in with google", user_omniauth_authorize_path(:google)
+            Sign in with:
+            = link_to image_tag('google_icon.png', alt: "sign in with google"), user_omniauth_authorize_path(:google)
+            = link_to image_tag('yahoo_icon.png', alt: "sign in with yahoo"), user_omniauth_authorize_path(:open_id, :openid_url => "http://yahoo.com")
         %h1= link_to "Gregg and Jen's Photos", root_path
     .content
       .wrapper

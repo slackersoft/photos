@@ -210,6 +210,7 @@ Devise.setup do |config|
     client_options = { :client_options => { :ssl => { :ca_file => '/usr/lib/ssl/certs/ca-certificates.crt' } } }
   end
   config.omniauth :open_id, client_options.merge(:store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id', :require => 'omniauth-openid')
+  config.omniauth :open_id, client_options.merge(:store => OpenID::Store::Filesystem.new('/tmp'), :require => 'omniauth-openid')
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
