@@ -4,7 +4,7 @@ module LetMeKnow
   describe Notification do
     describe "associations" do
       it { should belong_to(:subject) }
-      it { should belong_to(:notification_preference).class_name('::LetMeKnow::Preference') }
+      it { should belong_to(:notification_preference).class_name('LetMeKnow::Preference') }
     end
 
     describe "validations" do

@@ -62,6 +62,7 @@ class Photo < ActiveRecord::Base
 
   def save_dimensions
     converted_styles.each do |style|
+      next unless image.queued_for_write[style]
       geo = Paperclip::Geometry.from_file(image.queued_for_write[style])
       send("#{style}_width=", geo.width)
       send("#{style}_height=", geo.height)

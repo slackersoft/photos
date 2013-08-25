@@ -15,11 +15,11 @@ module LetMeKnow
 
   describe "ActiveRecord" do
     describe TestRecipient do
-      it { should have_one(:notification_preference).class_name("::LetMeKnow::Preference").dependent(:destroy) }
+      it { should have_one(:notification_preference).class_name("LetMeKnow::Preference").dependent(:destroy) }
     end
 
     describe TestSubject do
-      it { should have_many(:notifications).class_name("::LetMeKnow::Notification").dependent(:destroy) }
+      it { should have_many(:notifications).class_name("LetMeKnow::Notification").dependent(:destroy) }
     end
   end
 end
