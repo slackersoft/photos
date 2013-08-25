@@ -46,14 +46,22 @@ module LetMeKnow
       its(:subject) { should == "New photos added in the last day" }
       its(:from) { should == %w(photos@greggandjen.com) }
       its(:to) { should == [recipient.email] }
-      its(:body) do
 
+      its(:body) do
         should match(/^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/)
       end
 
       context "when sending from a weekly schedule" do
         let(:schedule) { :weekly }
         its(:subject) { should == "New photos added in the last week" }
+      end
+
+      context "when one of the subjects no longer exists" do
+        let(:second_photo_for_user) { nil }
+
+        its(:body) do
+          should match(/^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/)
+        end
       end
     end
   end

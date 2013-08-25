@@ -12,7 +12,7 @@ module LetMeKnow
 
     def notify_bulk(schedule, notifications)
       @recipient = notifications.first.recipient
-      @items = notifications.collect(&:subject)
+      @items = notifications.collect(&:subject).compact
       @usernames = @items.collect(&:user).uniq.collect(&:name)
       @subject_type = normalize_type_name @items.first
       mail to: @recipient.email,
