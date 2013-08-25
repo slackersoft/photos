@@ -33,7 +33,7 @@ gem 'aws-ses', require: 'aws/ses'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'jasmine'
+  gem 'jasmine', github: 'pivotal/jasmine-gem'
   gem 'jasmine-core'
   gem "headless"
 

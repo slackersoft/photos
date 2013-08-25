@@ -43,7 +43,7 @@ describe("Router", function () {
       });
 
       it("should navigate to root", function () {
-        jQuery.fancybox.mostRecentCall.args[1].afterClose();
+        jQuery.fancybox.calls.mostRecent().args[1].afterClose();
         expect(Backbone.history.navigate).toHaveBeenCalledWith('');
       });
 
@@ -53,7 +53,7 @@ describe("Router", function () {
         });
 
         it("should navigate to the tag", function () {
-          jQuery.fancybox.mostRecentCall.args[1].afterClose();
+          jQuery.fancybox.calls.mostRecent().args[1].afterClose();
           expect(Backbone.history.navigate).toHaveBeenCalledWith('foo');
         });
       });
@@ -65,7 +65,7 @@ describe("Router", function () {
         });
 
         it("should not navigate to root", function () {
-          jQuery.fancybox.mostRecentCall.args[1].afterClose();
+          jQuery.fancybox.calls.mostRecent().args[1].afterClose();
           expect(Backbone.history.navigate).not.toHaveBeenCalled();
         });
       });

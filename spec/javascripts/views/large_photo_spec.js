@@ -46,7 +46,7 @@ describe("views.LargePhoto", function () {
 
       describe("when the user enters a tag", function () {
         beforeEach(function () {
-          window.prompt.andReturn('hi');
+          window.prompt.and.callReturn('hi');
         });
 
         it("should add a tag to the model", function () {
@@ -57,7 +57,7 @@ describe("views.LargePhoto", function () {
 
       describe("when the user enters a blank tag", function () {
         beforeEach(function () {
-          window.prompt.andReturn('');
+          window.prompt.and.callReturn('');
           view.$('.add_tag').click();
         });
 
@@ -68,7 +68,7 @@ describe("views.LargePhoto", function () {
 
       describe("when the user cancels adding a tag", function () {
         beforeEach(function () {
-          window.prompt.andReturn(null);
+          window.prompt.and.callReturn(null);
           view.$('.add_tag').click();
         });
 
