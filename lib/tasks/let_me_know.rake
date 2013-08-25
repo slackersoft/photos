@@ -6,6 +6,11 @@ namespace :let_me_know do
 
   desc "Send weekly notifications"
   task :weekly => :environment do
-    LetMeKnow::PeriodicSender.send_notifications :weekly if Date.today.sunday?
+    if Time.zone.now.sunday?
+      puts "sending weekly notifications"
+      LetMeKnow::PeriodicSender.send_notifications :weekly
+    else
+      puts "skipping today"
+    end
   end
 end
