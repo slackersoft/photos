@@ -12,6 +12,6 @@
 //= require photos_app
 //= require_tree ./templates
 //= require_tree ./models
-//= require collections/photos
+//= require_tree ./collections
 //= require_tree ./views
 //= require router
