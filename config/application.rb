@@ -11,7 +11,7 @@ end
 
 module Photos
   class Application < Rails::Application
-  
+
     config.action_view.javascript_expansions[:defaults] = %w(jquery.min rails)
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -49,5 +49,6 @@ module Photos
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.assets.initialize_on_precompile = false
   end
 end
