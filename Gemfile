@@ -31,6 +31,10 @@ gem 'devise'
 gem 'omniauth-openid'
 gem 'aws-ses', require: 'aws/ses'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'jasmine', github: 'pivotal/jasmine-gem'
