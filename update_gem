@@ -20,5 +20,4 @@ else
 fi
 
 set -x
-# bundle update $gem_names && bundle exec rake && 
-git commit -a $commit_args
+bundle update $gem_names && bundle exec rake && git commit -a $commit_args
