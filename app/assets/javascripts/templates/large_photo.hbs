@@ -1,0 +1,22 @@
+<h2>{{ name }}</h2>
+<img src="{{ largeUrl }}" width="{{ largeWidth }}" height="{{ largeHeight }}" alt="{{ name }}" title="{{ name }}"/>
+<div>
+  {{ description }}
+  <a href="{{ rawUrl }}">Original</a>
+  <div class="tags">
+    Tags:
+    <ul>
+      {{#each tags}}
+        <li>{{ this }}{{#ifCanManageTags}}<a href="#" class="remove_tag">x</a>{{/ifCanManageTags}}</li>
+      {{/each}}
+    </ul>
+    {{#ifCanManageTags}}
+      <a href="#" class="add_tag">+</a>
+    {{/ifCanManageTags}}
+  </div>
+</div>
+{{#ifCanManagePhotos}}
+  <div class="administration">
+    <a href="delete" class="delete">delete</a>
+  </div>
+{{/ifCanManagePhotos}}

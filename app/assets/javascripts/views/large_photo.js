@@ -1,6 +1,6 @@
 (function (app) {
   app.views.LargePhoto = Backbone.View.extend({
-    template: app.templates.large_photo,
+    template: HandlebarsTemplates.large_photo,
     className: 'large_photo',
 
     events: {

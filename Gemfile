@@ -9,6 +9,7 @@ group :assets do
   gem 'sass-rails'
   gem 'therubyracer'
   gem 'uglifier'
+  gem 'handlebars_assets'
 end
 
 gem 'jquery-rails'

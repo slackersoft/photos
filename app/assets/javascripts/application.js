@@ -9,7 +9,9 @@
 //= require vendor/underscore
 //= require vendor/backbone
 //= require vendor/jquery.fancybox
+//= require handlebars
 //= require photos_app
+//= require handlebars_helpers
 //= require_tree ./templates
 //= require_tree ./models
 //= require_tree ./collections
