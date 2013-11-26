@@ -1,16 +1,24 @@
 #!/bin/bash
 
-amend=$1
+amend=false
+gem_names=()
 
 set -e
-if [ "${amend}" == "--amend" ]; then
+for arg in $@
+do
+  if [ "${arg}" == "--amend" ]; then
+    amend=true
+  else
+    gem_names+=($arg)
+  fi
+done
+if [ "${amend}" == "false" ]; then
   shift
   commit_args='--amend -C head'
 else
-  commit_args="-m 'update $gem_names'"
+  commit_args="-m \"update $gem_names\""
 fi
 
-gem_names=$@
-
 set -x
-bundle update $gem_names && bundle exec rake && git commit -a $commit_args
+# bundle update $gem_names && bundle exec rake && 
+git commit -a $commit_args
