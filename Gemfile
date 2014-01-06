@@ -38,7 +38,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'jasmine', '~> 2.0.0.rc5'
+  gem 'jasmine'
   gem "headless"
 
   gem 'jshint_on_rails'

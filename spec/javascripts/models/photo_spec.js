@@ -21,17 +21,17 @@ describe("models.Photo", function () {
   describe("#addTag", function () {
     it("should call the server to add the tag", function () {
       model.addTag('hi');
-      expect(mostRecentAjaxRequest()).not.toBeNull();
-      expect(mostRecentAjaxRequest().url).toEqual('/photos/13/add_tag');
-      expect(mostRecentAjaxRequest().method).toEqual('POST');
-      expect(mostRecentAjaxRequest().params).toMatch(/(^|[?&])tag=hi(&|$)/);
+      expect(jasmine.Ajax.requests.mostRecent()).not.toBeNull();
+      expect(jasmine.Ajax.requests.mostRecent().url).toEqual('/photos/13/add_tag');
+      expect(jasmine.Ajax.requests.mostRecent().method).toEqual('POST');
+      expect(jasmine.Ajax.requests.mostRecent().params).toMatch(/(^|[?&])tag=hi(&|$)/);
     });
 
     describe("when the server responds", function () {
       describe("successfully", function () {
         beforeEach(function () {
           model.addTag('hi');
-          mostRecentAjaxRequest().response({
+          jasmine.Ajax.requests.mostRecent().response({
             status: 200,
             responseText: JSON.stringify({tags: ['hello', 'goodbye']})
           });
@@ -55,16 +55,16 @@ describe("models.Photo", function () {
       });
 
       it("should call the server to remove the tag", function () {
-        expect(mostRecentAjaxRequest()).not.toBeNull();
-        expect(mostRecentAjaxRequest().url).toEqual('/photos/13/remove_tag');
-        expect(mostRecentAjaxRequest().method).toEqual('POST');
-        expect(mostRecentAjaxRequest().params).toMatch(/(^|[?&])tag=foo(&|$)/);
+        expect(jasmine.Ajax.requests.mostRecent()).not.toBeNull();
+        expect(jasmine.Ajax.requests.mostRecent().url).toEqual('/photos/13/remove_tag');
+        expect(jasmine.Ajax.requests.mostRecent().method).toEqual('POST');
+        expect(jasmine.Ajax.requests.mostRecent().params).toMatch(/(^|[?&])tag=foo(&|$)/);
       });
 
       describe("when the server responds", function () {
         describe("successfully", function () {
           beforeEach(function () {
-            mostRecentAjaxRequest().response({
+            jasmine.Ajax.requests.mostRecent().response({
               status: 200,
               responseText: JSON.stringify({tags: ['bar', 'baz']})
             });
@@ -106,9 +106,9 @@ describe("models.Photo", function () {
     });
 
     it("should call the server to delete the photo", function () {
-      expect(mostRecentAjaxRequest()).not.toBeNull();
-      expect(mostRecentAjaxRequest().url).toEqual('/photos/13');
-      expect(mostRecentAjaxRequest().method).toEqual('DELETE');
+      expect(jasmine.Ajax.requests.mostRecent()).not.toBeNull();
+      expect(jasmine.Ajax.requests.mostRecent().url).toEqual('/photos/13');
+      expect(jasmine.Ajax.requests.mostRecent().method).toEqual('DELETE');
     });
   });
 });
