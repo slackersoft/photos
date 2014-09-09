@@ -15,8 +15,8 @@ describe("views.PhotoList", function () {
 
     describe("when there are photos", function () {
       beforeEach(function () {
-        var photo1date = new Date(2014, 2, 12).getTime(),
-            photo2date = new Date(2014, 0, 5).getTime();
+        var photo1date = new Date(2014, 2, 12).getTime() / 1000,
+            photo2date = new Date(2014, 0, 5).getTime() / 1000;
         collection.reset([jasmine.photoJson(1, photo1date), jasmine.photoJson(2, photo2date)], {silent: true});
       });
 

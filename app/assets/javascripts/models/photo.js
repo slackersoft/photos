@@ -1,7 +1,7 @@
 (function (app) {
   app.models.Photo = Backbone.Model.extend({
     initialize: function (attrs) {
-      this.set({ createdAt: new Date(attrs.createdAt) });
+      this.set({ createdAt: new Date(attrs.createdAt * 1000) });
     },
 
     url: function (extraPath) {

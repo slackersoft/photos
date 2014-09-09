@@ -22,7 +22,7 @@ afterEach(function () {
 jasmine.photoJson = function (id, date) {
   return {
     id: id,
-    createdAt: date || new Date(2014, 2, 15).getTime(),
+    createdAt: date || new Date(2014, 2, 15).getTime() / 1000,
     name: "Mushroom",
     description: "",
     thumbUrl: "",
