@@ -1,4 +1,9 @@
 (function (app) {
+  var monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
   app.views.PhotoList = Backbone.View.extend({
     events: {
       'click a': 'usePushStateNav'
@@ -19,7 +24,16 @@
       if (this.collection.isEmpty()) {
         this.$el.append('<div class="no-photos">No photos have been uploaded yet</div>');
       } else {
+        var lastHeader = {};
+
         this.collection.each(_.bind(function (photo) {
+          var photoDate = photo.get('createdAt');
+
+          if (lastHeader.month !== photoDate.getMonth() || lastHeader.year !== photoDate.getFullYear()) {
+            lastHeader = { month: photoDate.getMonth(), year: photoDate.getFullYear() };
+            this.$el.append('<h2>' + monthNames[lastHeader.month] + ' ' + lastHeader.year + '</h2>');
+          }
+
           if ((this.selectedTag && photo.hasTag(this.selectedTag)) || !this.selectedTag) {
             this.$el.append(new app.views.Photo({model: photo}).render().el);
           }

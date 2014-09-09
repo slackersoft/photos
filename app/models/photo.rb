@@ -20,6 +20,7 @@ class Photo < ActiveRecord::Base
   def as_json(options={ })
     {
       id: id,
+      createdAt: created_at.to_i,
       name: name,
       description: description,
       thumbUrl: image.url(:thumb),

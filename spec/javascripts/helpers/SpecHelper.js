@@ -19,9 +19,10 @@ afterEach(function () {
   Backbone.history = oldHistory;
 });
 
-jasmine.photoJson = function (id) {
+jasmine.photoJson = function (id, date) {
   return {
     id: id,
+    createdAt: date || new Date(2014, 2, 15).getTime(),
     name: "Mushroom",
     description: "",
     thumbUrl: "",

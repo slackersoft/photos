@@ -4,6 +4,10 @@ describe("models.Photo", function () {
     model = new PhotosApp.models.Photo(jasmine.photoJson(13));
   });
 
+  it('should parse out the createdAt time', function () {
+    expect(model.get('createdAt')).toEqual(new Date(2014, 2, 15));
+  });
+
   describe("#url", function () {
     describe("without a parameter", function () {
       it("should be correct", function () {

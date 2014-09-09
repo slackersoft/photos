@@ -15,7 +15,9 @@ describe("views.PhotoList", function () {
 
     describe("when there are photos", function () {
       beforeEach(function () {
-        collection.reset([jasmine.photoJson(1), jasmine.photoJson(2)], {silent: true});
+        var photo1date = new Date(2014, 2, 12).getTime(),
+            photo2date = new Date(2014, 0, 5).getTime();
+        collection.reset([jasmine.photoJson(1, photo1date), jasmine.photoJson(2, photo2date)], {silent: true});
       });
 
       it("should render each", function () {
@@ -26,6 +28,13 @@ describe("views.PhotoList", function () {
       it("should not show a link to all photos", function () {
         view.render();
         expect(view.$('.all_photos').length).toEqual(0);
+      });
+
+      it("should show time-based headers", function () {
+        view.render();
+        expect(view.$('h2').length).toEqual(2);
+        expect(view.$('h2:eq(0)').text()).toEqual('March 2014');
+        expect(view.$('h2:eq(1)').text()).toEqual('January 2014');
       });
 
       describe("when there was content before", function () {

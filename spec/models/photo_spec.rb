@@ -33,6 +33,7 @@ describe Photo do
     it do
       should == {
         id: photo.id,
+        createdAt: photo.created_at.to_i,
         name: 'foo',
         description: 'and stuff',
         thumbUrl: photo.image.url(:thumb),

@@ -1,5 +1,9 @@
 (function (app) {
   app.models.Photo = Backbone.Model.extend({
+    initialize: function (attrs) {
+      this.set({ createdAt: new Date(attrs.createdAt) });
+    },
+
     url: function (extraPath) {
       var builder = ['/photos/', this.id];
       if (extraPath) {
