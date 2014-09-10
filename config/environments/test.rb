@@ -39,4 +39,6 @@ Photos::Application.configure do
 
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
+
+  I18n.enforce_available_locales = false
 end

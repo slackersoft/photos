@@ -27,8 +27,7 @@ describe AccountsController do
 
         it "should add the errors to the user's notification preference" do
           show
-          controller.current_user.notification_preference.should have(1).error_on(:foo)
-          controller.current_user.notification_preference.errors_on(:foo).should == ['bar baz']
+          controller.current_user.notification_preference.errors(:foo).should == ['bar baz']
         end
       end
     end

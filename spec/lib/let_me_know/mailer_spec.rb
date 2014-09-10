@@ -10,20 +10,23 @@ module LetMeKnow
 
       subject { described_class.notify(notification) }
 
-      its(:subject) { should == "New photo added" }
-      its(:from) { should == %w(photos@greggandjen.com) }
-      its(:to) { should == [recipient.email] }
-      its(:body) do
-        should include("#{notification_subject.user.name} has added a new photo")
-        should include("See more")
+      it 'should have the right fields' do
+        expect(subject.subject).to eq 'New photo added'
+        expect(subject.from).to eq %w(photos@greggandjen.com)
+        expect(subject.to).to eq [recipient.email]
+        expect(subject.body).to include "#{notification_subject.user.name} has added a new photo"
+        expect(subject.body).to include "See more"
       end
 
-      context "dynamicness of subject" do
+      context "with a custom notification subject" do
         let(:notification_subject) do
           CrazyPhoto = Class.new(Photo)
           CrazyPhoto.new(attributes_for(:photo).merge(user: users(:authorized)))
         end
-        its(:subject) { should == "New crazy photo added" }
+
+        it 'should update the email subject' do
+          expect(subject.subject).to eq 'New crazy photo added'
+        end
       end
     end
 
@@ -43,24 +46,26 @@ module LetMeKnow
 
       subject { described_class.notify_bulk(schedule, notifications) }
 
-      its(:subject) { should == "New photos added in the last day" }
-      its(:from) { should == %w(photos@greggandjen.com) }
-      its(:to) { should == [recipient.email] }
-
-      its(:body) do
-        should match(/^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/)
+      it 'should have the right fields' do
+        expect(subject.subject).to eq "New photos added in the last day"
+        expect(subject.from).to eq %w(photos@greggandjen.com)
+        expect(subject.to).to eq [recipient.email]
+        expect(subject.body).to match /^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/
       end
 
       context "when sending from a weekly schedule" do
         let(:schedule) { :weekly }
-        its(:subject) { should == "New photos added in the last week" }
+
+        it 'should have the right subject' do
+          expect(subject.subject).to eq 'New photos added in the last week'
+        end
       end
 
       context "when one of the subjects no longer exists" do
         let(:second_photo_for_user) { nil }
 
-        its(:body) do
-          should match(/^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/)
+        it 'should have the right content' do
+          expect(subject.body).to match /^New photos have been added by #{either_user_name_regex} and #{either_user_name_regex}$/
         end
       end
     end
