@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MailChecker do
   before do
-    MailChecker.stub(:log)
+    allow(MailChecker).to receive(:log)
   end
 
   describe ".check_for_mail" do
@@ -34,7 +34,7 @@ describe MailChecker do
         it "should delete the mail" do
           subject.call
 
-          Mail::TestRetriever.emails.should be_empty
+          expect(Mail::TestRetriever.emails).to be_empty
         end
       end
 
@@ -46,7 +46,7 @@ describe MailChecker do
         it "should delete the mail" do
           subject.call
 
-          Mail::TestRetriever.emails.should be_empty
+          expect(Mail::TestRetriever.emails).to be_empty
         end
       end
 
@@ -60,7 +60,7 @@ describe MailChecker do
           it "should delete the mail" do
             subject.call
 
-            Mail::TestRetriever.emails.should be_empty
+            expect(Mail::TestRetriever.emails).to be_empty
           end
         end
 
@@ -71,13 +71,13 @@ describe MailChecker do
 
           it "should associate the photo with the sender" do
             subject.call
-            Photo.last.user.should == users(:authorized)
+            expect(Photo.last.user).to eq users(:authorized)
           end
 
           it "should delete the mail" do
             subject.call
 
-            Mail::TestRetriever.emails.should be_empty
+            expect(Mail::TestRetriever.emails).to be_empty
           end
 
           context "when the email has a blank subject" do
@@ -86,7 +86,7 @@ describe MailChecker do
             it "should use the name of the attachment file for the photo name" do
               subject.call
 
-              Photo.last.name.should == 'foo.png'
+              expect(Photo.last.name).to eq 'foo.png'
             end
           end
 
@@ -96,7 +96,7 @@ describe MailChecker do
             it "should use the subject and the photo name" do
               subject.call
 
-              Photo.last.name.should == 'My Foo Thing'
+              expect(Photo.last.name).to eq 'My Foo Thing'
             end
 
             context "when the email was forwarded" do
@@ -105,7 +105,7 @@ describe MailChecker do
               it "should not include the forwarding information" do
                 subject.call
 
-                Photo.last.name.should == 'My Foo Thing'
+                expect(Photo.last.name).to eq 'My Foo Thing'
               end
             end
 
@@ -116,8 +116,8 @@ describe MailChecker do
                 it "should tag the photo and not have the tag in the name" do
                   subject.call
 
-                  Photo.last.name.should == 'My Stuff'
-                  Photo.last.should have_tag('Taggy')
+                  expect(Photo.last.name).to eq 'My Stuff'
+                  expect(Photo.last).to have_tag('Taggy')
                 end
               end
 
@@ -127,9 +127,9 @@ describe MailChecker do
                 it "should tag the photo and not have the tag in the name" do
                   subject.call
 
-                  Photo.last.name.should == 'My Stuff'
-                  Photo.last.should have_tag('Taggy')
-                  Photo.last.should have_tag('Stuff')
+                  expect(Photo.last.name).to eq 'My Stuff'
+                  expect(Photo.last).to have_tag('Taggy')
+                  expect(Photo.last).to have_tag('Stuff')
                 end
               end
 
@@ -139,8 +139,8 @@ describe MailChecker do
                 it "should tag the photo and not have the tag in the name" do
                   subject.call
 
-                  Photo.last.name.should == 'My Stuff'
-                  Photo.last.should have_tag('Taggy')
+                  expect(Photo.last.name).to eq 'My Stuff'
+                  expect(Photo.last).to have_tag('Taggy')
                 end
               end
 
@@ -150,9 +150,9 @@ describe MailChecker do
                 it "should tag the photo and not have the tag in the name" do
                   subject.call
 
-                  Photo.last.name.should == 'My Stuff'
-                  Photo.last.should have_tag('Taggy')
-                  Photo.last.should have_tag('Stuff')
+                  expect(Photo.last.name).to eq 'My Stuff'
+                  expect(Photo.last).to have_tag('Taggy')
+                  expect(Photo.last).to have_tag('Stuff')
                 end
               end
 
@@ -162,8 +162,8 @@ describe MailChecker do
                 it "should not tag the photo or remove the tag-like string from the name" do
                   subject.call
 
-                  Photo.last.name.should == 'My [Taggy] Stuff'
-                  Photo.last.tags.should == []
+                  expect(Photo.last.name).to eq 'My [Taggy] Stuff'
+                  expect(Photo.last.tags).to eq []
                 end
               end
             end
@@ -175,7 +175,7 @@ describe MailChecker do
             it "should set the photo's description to be empty" do
               subject.call
 
-              Photo.last.description.should == ''
+              expect(Photo.last.description).to eq ''
             end
           end
 
@@ -185,7 +185,7 @@ describe MailChecker do
             it "should use the text as the description for the image" do
               subject.call
 
-              Photo.last.description.should == email_body_text
+              expect(Photo.last.description).to eq email_body_text
             end
 
             context "with a signature" do
@@ -200,7 +200,7 @@ describe MailChecker do
               it "should not include the signature in the description" do
                 subject.call
 
-                Photo.last.description.should == "this is a description"
+                expect(Photo.last.description).to eq "this is a description"
               end
             end
 
@@ -216,7 +216,7 @@ describe MailChecker do
               it "should not include the forwarding information" do
                 subject.call
 
-                Photo.last.description.should == "this is a description"
+                expect(Photo.last.description).to eq "this is a description"
               end
             end
           end

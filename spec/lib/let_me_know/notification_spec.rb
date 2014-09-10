@@ -34,12 +34,12 @@ module LetMeKnow
 
       it "should send the notification" do
         expect { notification.send_notification }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        ActionMailer::Base.deliveries.last.subject.should == "New photo added"
+        expect(ActionMailer::Base.deliveries.last.subject).to eq "New photo added"
       end
 
       it "should mark the notification as sent" do
         notification.send_notification
-        notification.reload.should be_sent
+        expect(notification.reload).to be_sent
       end
 
       context "when it has already been sent" do
@@ -58,7 +58,7 @@ module LetMeKnow
       let!(:sent) { Notification.create(subject: photos(:mushroom), notification_preference: create(:notification_preference, owner: users(:admin)), sent_at: Time.now) }
 
       it "should not include notifications that have been sent" do
-        Notification.unsent.should == [unsent]
+        expect(Notification.unsent).to eq [unsent]
       end
     end
 
@@ -68,14 +68,14 @@ module LetMeKnow
       let!(:immediately) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:authorized), schedule: :immediately)) }
 
       it "should only include notifications whose recipient wants notifications on the given schedule" do
-        Notification.scheduled_as(:daily).should == [daily]
-        Notification.scheduled_as(:weekly).should == [weekly]
-        Notification.scheduled_as(:immediately).should == [immediately]
+        expect(Notification.scheduled_as(:daily)).to eq [daily]
+        expect(Notification.scheduled_as(:weekly)).to eq [weekly]
+        expect(Notification.scheduled_as(:immediately)).to eq [immediately]
       end
 
       it "should not return readonly records" do
         Notification.scheduled_as(:daily).each do |notification|
-          notification.should_not be_readonly
+          expect(notification).not_to be_readonly
         end
       end
     end

@@ -13,9 +13,9 @@ module LetMeKnow
           expect do
             described_class.send_notifications(:daily)
           end.to change { ActionMailer::Base.deliveries.count }.by(2)
-          daily.reload.should be_sent
-          daily2.reload.should be_sent
-          weekly.reload.should_not be_sent
+          expect(daily.reload).to be_sent
+          expect(daily2.reload).to be_sent
+          expect(weekly.reload).not_to be_sent
         end
       end
 
@@ -26,9 +26,9 @@ module LetMeKnow
           expect do
             described_class.send_notifications(:weekly)
           end.to change { ActionMailer::Base.deliveries.count }.by(2)
-          weekly.reload.should be_sent
-          weekly2.reload.should be_sent
-          daily.reload.should_not be_sent
+          expect(weekly.reload).to be_sent
+          expect(weekly2.reload).to be_sent
+          expect(daily.reload).not_to be_sent
         end
       end
 
@@ -39,9 +39,9 @@ module LetMeKnow
           expect do
             described_class.send_notifications(:daily)
           end.to change { ActionMailer::Base.deliveries.count }.by(1)
-          daily.reload.should be_sent
-          daily_double.reload.should be_sent
-          weekly.reload.should_not be_sent
+          expect(daily.reload).to be_sent
+          expect(daily_double.reload).to be_sent
+          expect(weekly.reload).not_to be_sent
         end
       end
 
@@ -49,8 +49,8 @@ module LetMeKnow
         let!(:sent_note) { Notification.create!(subject: photos(:mushroom), notification_preference: create(:notification_preference, owner: users(:admin), schedule: :daily), sent_at: Time.now) }
 
         it "should not re-send sent notifications" do
-          Mailer.should_receive(:notify_bulk).with(:daily, anything) do |_, notifications|
-            notifications.should_not include(sent_note)
+          expect(Mailer).to receive(:notify_bulk).with(:daily, anything) do |_, notifications|
+            expect(notifications).not_to include(sent_note)
             double(:mail, deliver!: true)
           end
           described_class.send_notifications(:daily)

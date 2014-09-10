@@ -13,15 +13,15 @@ describe Photo do
   end
 
   it "should have a working factory" do
-    build(:photo).should be_valid
+    expect(build(:photo)).to be_valid
   end
 
   it "should save widths and heights for non-original versions" do
     photo = Photo.new(name: 'foo', image: File.new(Rails.root.join('spec/fixtures/files/mushroom.png')))
-    photo.thumb_width.should == 100
-    photo.thumb_height.should == 100
-    photo.large_width.should == 200
-    photo.large_height.should == 200
+    expect(photo.thumb_width).to eq 100
+    expect(photo.thumb_height).to eq 100
+    expect(photo.large_width).to eq 200
+    expect(photo.large_height).to eq 200
   end
 
   describe "#as_json" do
@@ -52,7 +52,7 @@ describe Photo do
     describe ".for_display" do
       subject { Photo.for_display }
 
-      it { should == [photos(:mushroom), photos(:mohawk)] }
+      it { should eq [photos(:mushroom), photos(:mohawk)] }
     end
   end
 
@@ -66,10 +66,10 @@ describe Photo do
     it "should reset the saved dimensions to what is currently in the file" do
       photo.reset_dimensions!
 
-      photo.thumb_width.should == 100
-      photo.thumb_height.should == 100
-      photo.large_width.should == 200
-      photo.large_height.should == 200
+      expect(photo.thumb_width).to eq 100
+      expect(photo.thumb_height).to eq 100
+      expect(photo.large_width).to eq 200
+      expect(photo.large_height).to eq 200
     end
   end
 
@@ -80,7 +80,7 @@ describe Photo do
     subject { photo.has_tag?(tag) }
 
     context "when the photo has no tags" do
-      it { should == false }
+      it { should eq false }
     end
 
     context "when the photo has other tags" do
@@ -88,7 +88,7 @@ describe Photo do
         photo.add_tag 'foo'
       end
 
-      it { should == false }
+      it { should eq false }
     end
 
     context "when the photo has the specified tag" do
@@ -96,7 +96,7 @@ describe Photo do
         photo.add_tag tag
       end
 
-      it { should == true }
+      it { should eq true }
     end
 
     context "when the photo has the tag with a different case" do
@@ -104,7 +104,7 @@ describe Photo do
         photo.add_tag tag.upcase
       end
 
-      it { should == true }
+      it { should eq true }
     end
   end
 
@@ -117,33 +117,33 @@ describe Photo do
     end
 
     it "should add the tag" do
-      photo.reload.tags.map(&:name).should == %w(hello)
+      expect(photo.reload.tags.map(&:name)).to eq %w(hello)
     end
 
     context "when the tag already exists in the database" do
       let(:tag) { Tag.create(name: 'hello').name }
 
       it "should not create another tag model" do
-        Tag.count.should == 2
+        expect(Tag.count).to eq 2
       end
 
       context "when the tag in the database has a different case" do
         let(:tag) { Tag.create(name: 'hello').name.upcase }
 
         it "should not create another tag model" do
-          Tag.count.should == 2
+          expect(Tag.count).to eq 2
         end
       end
     end
 
     context "when the photo is already associated with that tag" do
       it "should not add a duplicate entry" do
-        lambda { photo.add_tag tag }.should_not change { photo.reload.tags.count }
+        expect { photo.add_tag tag }.not_to change { photo.reload.tags.count }
       end
 
       context "when the existing tag is a different case" do
         it "should not add a duplicate entry" do
-          lambda { photo.add_tag tag.upcase }.should_not change { photo.reload.tags.count }
+          expect { photo.add_tag tag.upcase }.not_to change { photo.reload.tags.count }
         end
       end
     end
@@ -158,16 +158,16 @@ describe Photo do
     end
 
     it "should remove the tag from the photo" do
-      photo.reload.tags.should == []
-      Tag.count.should == 1
+      expect(photo.reload.tags).to eq []
+      expect(Tag.count).to eq 1
     end
 
     context "when the tag associated with the photo has a different case" do
       let(:tag) { tags(:tag).name.upcase }
 
       it "should remove the tag from the photo" do
-        photo.reload.tags.should == []
-        Tag.count.should == 1
+        expect(photo.reload.tags).to eq []
+        expect(Tag.count).to eq 1
       end
     end
 
@@ -175,7 +175,7 @@ describe Photo do
       let(:tag) { 'foo' }
 
       it "should not affect the tags for the photo" do
-        photo.reload.tags.map(&:name).should == %w(mario)
+        expect(photo.reload.tags.map(&:name)).to eq %w(mario)
       end
     end
   end

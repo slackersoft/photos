@@ -14,13 +14,13 @@ describe Tag do
 
     context "when the other argument is a tag object" do
       it "should compare correctly" do
-        tag.should == tag
+        expect(tag).to eq tag
       end
     end
 
     context "when the other argument is a string" do
       it "should compare the string with its name" do
-        tag.should == 'foo'
+        expect(tag).to eq 'foo'
       end
     end
   end
@@ -31,11 +31,11 @@ describe Tag do
 
     context "when the tag doesn't exist" do
       it "should create the tag" do
-        lambda { subject }.should change { Tag.count }.by(1)
+        expect { subject }.to change { Tag.count }.by(1)
       end
 
       it "should return the created tag" do
-        subject.should == tag_name
+        expect(subject).to eq tag_name
       end
     end
 
@@ -46,18 +46,18 @@ describe Tag do
       let(:existing_tag_name) { tag_name }
 
       it "should not create a tag" do
-        lambda { subject }.should_not change { Tag.count }
+        expect { subject }.not_to change { Tag.count }
       end
 
       it "should return the existing tag" do
-        subject.should == tag_name
+        expect(subject).to eq tag_name
       end
 
       context "when the existing tag is a different case" do
         let(:existing_tag_name) { tag_name.upcase }
 
         it "should not create a tag" do
-          lambda { subject }.should_not change { Tag.count }
+          expect { subject }.not_to change { Tag.count }
         end
       end
     end
@@ -69,7 +69,7 @@ describe Tag do
 
     context "when the tag doesn't exist" do
       it "should return nothing" do
-        subject.should be_empty
+        expect(subject).to be_empty
       end
     end
 
@@ -80,14 +80,14 @@ describe Tag do
       let(:existing_tag_name) { tag_name }
 
       it "should return the existing tag" do
-        subject.should == [tag_name]
+        expect(subject).to eq [tag_name]
       end
 
       context "when the existing tag is a different case" do
         let(:existing_tag_name) { tag_name.upcase }
 
         it "should return the existing tag" do
-          subject.should == [existing_tag_name]
+          expect(subject).to eq [existing_tag_name]
         end
       end
     end

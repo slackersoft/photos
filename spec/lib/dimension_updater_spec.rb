@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DimensionUpdater do
   before do
-    DimensionUpdater.stub(:log)
+    allow(DimensionUpdater).to receive(:log)
   end
 
   describe ".update_dimensions" do
@@ -19,16 +19,16 @@ describe DimensionUpdater do
       DimensionUpdater.update_dimensions
 
       mushroom.reload
-      mushroom.thumb_width.should == 100
-      mushroom.thumb_height.should == 100
-      mushroom.large_width.should == 200
-      mushroom.large_height.should == 200
+      expect(mushroom.thumb_width).to eq 100
+      expect(mushroom.thumb_height).to eq 100
+      expect(mushroom.large_width).to eq 200
+      expect(mushroom.large_height).to eq 200
 
       mohawk.reload
-      mohawk.thumb_width.should == 75
-      mohawk.thumb_height.should == 100
-      mohawk.large_width.should == 375
-      mohawk.large_height.should == 500
+      expect(mohawk.thumb_width).to eq 75
+      expect(mohawk.thumb_height).to eq 100
+      expect(mohawk.large_width).to eq 375
+      expect(mohawk.large_height).to eq 500
     end
   end
 end

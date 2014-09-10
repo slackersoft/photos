@@ -14,8 +14,8 @@ describe User do
     let(:user) { create(:user) }
 
     it "should create a sender email for email" do
-      lambda { user }.should change{SenderEmail.count}.by(1)
-      SenderEmail.last.user.should == user
+      expect { user }.to change{SenderEmail.count}.by(1)
+      expect(SenderEmail.last.user).to eq user
     end
   end
 
@@ -34,11 +34,11 @@ describe User do
       let(:email) { users(:unauthorized).email }
 
       it "should not create a user" do
-        lambda { subject }.should_not change { User.count }
+        expect { subject }.not_to change { User.count }
       end
 
       it "should return the matching user" do
-        should == users(:unauthorized)
+        should eq users(:unauthorized)
       end
     end
 
@@ -46,12 +46,12 @@ describe User do
       let(:email) { 'foobar@baz.com' }
 
       it "should create a corresponding user" do
-        lambda { subject }.should change { User.count }.by(1)
-        User.last.email.should == email
+        expect { subject }.to change { User.count }.by(1)
+        expect(User.last.email).to eq email
       end
 
       it "should return the created user" do
-        subject.should == User.last
+        expect(subject).to eq User.last
       end
     end
   end
@@ -63,25 +63,25 @@ describe User do
     context "when the user has a name" do
       let(:name) { 'Foo Bar' }
 
-      it { should == name }
+      it { should eq name }
     end
 
     context "when the user does not have a name" do
       let(:name) { nil }
 
-      it { should == user.email }
+      it { should eq user.email }
     end
   end
 
   describe ".authorized" do
     it "should only return users who are authorized" do
-      User.authorized.should =~ [users(:admin), users(:authorized)]
+      expect(User.authorized).to match_array [users(:admin), users(:authorized)]
     end
   end
 
   describe ".with_email" do
     it "should return the user who owns the specified sender email" do
-      User.with_email('still@unauthorized.com').should == users(:unauthorized)
+      expect(User.with_email('still@unauthorized.com')).to eq users(:unauthorized)
     end
   end
 end

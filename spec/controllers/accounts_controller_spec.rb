@@ -27,7 +27,7 @@ describe AccountsController do
 
         it "should add the errors to the user's notification preference" do
           show
-          controller.current_user.notification_preference.errors(:foo).should == ['bar baz']
+          expect(controller.current_user.notification_preference.errors(:foo)).to eq ['bar baz']
         end
       end
     end
@@ -44,7 +44,7 @@ describe AccountsController do
       it { should redirect_to(root_path) }
 
       it "should not update any user" do
-        User.where(name: 'Foo').should == []
+        expect(User.where(name: 'Foo')).to eq []
       end
     end
 
@@ -55,8 +55,8 @@ describe AccountsController do
 
       it "should update the user" do
         subject
-        response.should redirect_to(root_path)
-        users(:unauthorized).reload.name.should == 'Foo'
+        expect(response).to redirect_to(root_path)
+        expect(users(:unauthorized).reload.name).to eq 'Foo'
       end
     end
   end

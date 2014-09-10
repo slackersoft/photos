@@ -4,9 +4,9 @@ describe PhotosController do
   describe "#show" do
     it "should render with all the photos" do
       get :show, id: 'foo'
-      response.should be_success
-      assigns.should have_key(:photos)
-      assigns[:photos].should == [photos(:mushroom), photos(:mohawk)]
+      expect(response).to be_success
+      expect(assigns).to have_key(:photos)
+      expect(assigns[:photos]).to eq [photos(:mushroom), photos(:mohawk)]
     end
   end
 
@@ -20,8 +20,8 @@ describe PhotosController do
       end
 
       it "should delete the photo" do
-        lambda { subject }.should change { Photo.count }.by(-1)
-        response.should be_success
+        expect { subject }.to change { Photo.count }.by(-1)
+        expect(response).to be_success
       end
     end
 
@@ -31,8 +31,8 @@ describe PhotosController do
       end
 
       it "should not delete the photo and return unauthorized" do
-        lambda { subject }.should_not change { Photo.count }
-        response.code.should == '403'
+        expect { subject }.not_to change { Photo.count }
+        expect(response.code).to eq '403'
       end
     end
 
@@ -42,8 +42,8 @@ describe PhotosController do
       end
 
       it "should not delete the photo and return unauthorized" do
-        lambda { subject }.should_not change { Photo.count }
-        response.code.should == '403'
+        expect { subject }.not_to change { Photo.count }
+        expect(response.code).to eq '403'
       end
     end
   end
@@ -60,16 +60,16 @@ describe PhotosController do
       end
 
       it "should add the tag" do
-        lambda { subject }.should change { photo.reload.tags.size }.by(1)
-        response.should be_success
-        photo.tags.last.should == 'hi'
+        expect { subject }.to change { photo.reload.tags.size }.by(1)
+        expect(response).to be_success
+        expect(photo.tags.last).to eq 'hi'
       end
 
       it "should render the updated photo as json" do
         subject
-        response.should be_success
+        expect(response).to be_success
         photo_json = JSON.parse(response.body)
-        photo_json['tags'].should == %w(hi)
+        expect(photo_json['tags']).to eq %w(hi)
       end
     end
 
@@ -79,8 +79,8 @@ describe PhotosController do
       end
 
       it "should not add the tag and fail with unauthorized" do
-        lambda { subject }.should_not change { photo.reload.tags.size }
-        response.code.should == '403'
+        expect { subject }.not_to change { photo.reload.tags.size }
+        expect(response.code).to eq '403'
       end
     end
 
@@ -90,8 +90,8 @@ describe PhotosController do
       end
 
       it "should not add the tag and fail with unauthorized" do
-        lambda { subject }.should_not change { photo.reload.tags.size }
-        response.code.should == '403'
+        expect { subject }.not_to change { photo.reload.tags.size }
+        expect(response.code).to eq '403'
       end
     end
   end
@@ -108,16 +108,16 @@ describe PhotosController do
       end
 
       it "should remove the tag" do
-        lambda { subject }.should change { photo.reload.tags.size }.by(-1)
-        response.should be_success
-        photo.tags.should == []
+        expect { subject }.to change { photo.reload.tags.size }.by(-1)
+        expect(response).to be_success
+        expect(photo.tags).to eq []
       end
 
       it "should render the updated photo as json" do
         subject
-        response.should be_success
+        expect(response).to be_success
         photo_json = JSON.parse(response.body)
-        photo_json['tags'].should == []
+        expect(photo_json['tags']).to eq []
       end
     end
 
@@ -127,8 +127,8 @@ describe PhotosController do
       end
 
       it "should not add the tag and fail with unauthorized" do
-        lambda { subject }.should_not change { photo.reload.tags.size }
-        response.code.should == '403'
+        expect { subject }.not_to change { photo.reload.tags.size }
+        expect(response.code).to eq '403'
       end
     end
 
@@ -138,8 +138,8 @@ describe PhotosController do
       end
 
       it "should not add the tag and fail with unauthorized" do
-        lambda { subject }.should_not change { photo.reload.tags.size }
-        response.code.should == '403'
+        expect { subject }.not_to change { photo.reload.tags.size }
+        expect(response.code).to eq '403'
       end
     end
   end

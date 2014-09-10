@@ -31,8 +31,8 @@ module LetMeKnow
 
         it "should require schedule to be set" do
           subject.schedule = nil
-          subject.should_not be_valid
-          subject.errors[:schedule].size.should == 1
+          expect(subject).not_to be_valid
+          expect(subject.errors[:schedule].size).to eq 1
         end
       end
 
@@ -44,8 +44,8 @@ module LetMeKnow
         it "should set the schedule to nil" do
           subject.schedule = :immediate
           subject.valid?
-          subject.schedule.should be_nil
-          subject.errors[:schedule].size.should == 0
+          expect(subject.schedule).to be_nil
+          expect(subject.errors[:schedule].size).to eq 0
         end
       end
     end
