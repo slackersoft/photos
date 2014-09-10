@@ -9,7 +9,7 @@ group :assets do
   gem 'sass-rails'
   gem 'therubyracer'
   gem 'uglifier'
-  gem 'handlebars_assets'
+  gem 'handlebars_assets', '0.17'
 end
 
 gem 'jquery-rails'
@@ -37,7 +37,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.99'
   gem 'jasmine'
   gem "headless"
 

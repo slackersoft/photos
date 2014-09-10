@@ -7,6 +7,7 @@ class Photo < ActiveRecord::Base
   after_post_process :save_dimensions
 
   validates_attachment_presence :image
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :name
   validates_uniqueness_of :original_message_id
 
