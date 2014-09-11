@@ -1,16 +1,19 @@
 #
 # Format:
 #
-# <heroku_san shorthand name>:
+# <stage name>:
 #   app: <Heroku app name>
 #   stack: <Heroku stack, optional>
+#   tag: <git tag pattern, optional>
+#   repo: <git repository, optional>
 #   config:
 #     - <Heroku config:var name>: <Heroku config:var value>
 #
+
 production:
   app: gnj-photos
   stack: cedar
   tag: production/*
   config:
     BUNDLE_WITHOUT: "development:test"
-
+    GOOGLE_ANALYTICS: "UA-12345678-1"

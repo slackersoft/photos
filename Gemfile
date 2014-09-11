@@ -45,8 +45,8 @@ group :development, :test do
   gem 'fixture_builder'
 end
 
+gem "heroku_san"
 group :development do
-  gem "heroku_san", "1.3.0"
   gem "hpricot"
   gem "ruby_parser"
   gem "foreman"
