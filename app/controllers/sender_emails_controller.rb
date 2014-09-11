@@ -2,7 +2,7 @@ class SenderEmailsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    current_user.sender_emails.create params[:sender_email]
+    current_user.sender_emails.create address: params[:sender_email][:address]
     redirect_to account_path
   end
 

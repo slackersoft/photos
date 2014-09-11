@@ -3,14 +3,12 @@ source 'http://rubygems.org'
 ruby '2.1.2'
 
 gem 'rake'
-gem 'rails', '~> 3.2'
+gem 'rails'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'therubyracer'
-  gem 'uglifier'
-  gem 'handlebars_assets', '0.17'
-end
+gem 'sass-rails'
+gem 'therubyracer'
+gem 'uglifier'
+gem 'handlebars_assets', '0.17'
 
 gem 'jquery-rails'
 

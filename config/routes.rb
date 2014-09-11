@@ -21,6 +21,6 @@ Photos::Application.routes.draw do
     end
   end
 
-  match "/:tag_name" => "tags#show"
+  get "/:tag_name" => "tags#show"
   root :to => "roots#index"
 end

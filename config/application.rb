@@ -4,15 +4,15 @@ require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  # Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
+  Bundler.require(:default, Rails.env)
 end
 
 module Photos
   class Application < Rails::Application
 
-    config.action_view.javascript_expansions[:defaults] = %w(jquery.min rails)
+    # config.action_view.javascript_expansions[:defaults] = %w(jquery.min rails)
     config.assets.precompile += %w(desktop.css)
 
     # Settings in config/environments/* take precedence over those specified here.
