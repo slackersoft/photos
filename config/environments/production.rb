@@ -63,4 +63,6 @@ Photos::Application.configure do
   config.middleware.use(Rack::Auth::Basic, "Speak friend, and enter") do |u, p|
     u == ENV['BASIC_AUTH_USER'] && p == ENV['BASIC_AUTH_PASSWORD']
   end
+
+  config.log_level = :info
 end
