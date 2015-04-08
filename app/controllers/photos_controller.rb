@@ -33,4 +33,25 @@ class PhotosController < ApplicationController
       head 403
     end
   end
+
+  def new
+    unless current_user && current_user.admin?
+      redirect_to root_path
+    end
+  end
+
+  def create
+    unless current_user && current_user.admin?
+      redirect_to root_path and return
+    end
+
+    photo = current_user.photos.create(photo_params)
+    redirect_to new_photo_path, alert: photo.valid? ? 'Saved' : "Oops: #{photo.errors.full_messages}"
+  end
+
+  private
+
+  def photo_params
+    params.require(:photo).permit(:name, :image, :created_at)
+  end
 end

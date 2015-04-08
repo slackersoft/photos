@@ -9,7 +9,7 @@ class Photo < ActiveRecord::Base
   validates_attachment_presence :image
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :name
-  validates_uniqueness_of :original_message_id
+  validates_uniqueness_of :original_message_id, allow_nil: true
 
   before_save :uniq_tags
   notification_subject

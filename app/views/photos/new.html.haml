@@ -1,0 +1,10 @@
+.flash-container
+  = flash.alert
+
+= form_for Photo.new do |f|
+  = f.file_field :image
+  = f.text_field :name, placeholder: 'name'
+  = f.text_field :created_at, placeholder: 'when'
+
+  = f.submit
+

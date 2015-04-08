@@ -143,4 +143,47 @@ describe PhotosController do
       end
     end
   end
+
+  describe '#new' do
+    it 'redirects a non-admin to the root' do
+      get :new
+
+      expect(response).to redirect_to root_path
+    end
+
+    it 'allows an admin user' do
+      sign_in users(:admin)
+      get :new
+
+      expect(response).to be_success
+    end
+  end
+
+  describe '#create' do
+    it 'redirects a non-admin to the root' do
+      post :create
+
+      expect(response).to redirect_to root_path
+    end
+
+    it 'creates a photo for an admin user' do
+      sign_in users(:admin)
+
+      expect do
+        post :create, photo: { image: fixture_file_upload('files/mohawk.jpeg', 'image/jpeg'), name: 'my new photo' }
+      end.to change(Photo, :count).by(1)
+
+      expect(response).to redirect_to new_photo_path
+
+      expect(Photo.last.user).to eq(users(:admin))
+    end
+
+    it 'allows the admin user to override the created_at' do
+      sign_in users(:admin)
+
+      post :create, photo: { image: fixture_file_upload('files/mohawk.jpeg', 'image/jpeg'), name: 'old photo', created_at: '2014-01-01' }
+
+      expect(Photo.last.created_at).to eq(Time.utc(2014, 1, 1))
+    end
+  end
 end

@@ -11,6 +11,17 @@ describe("views.PhotoList", function () {
         view.render();
         expect(view.$el.text()).toEqual('No photos have been uploaded yet');
       });
+
+      it("should not show a link to add photos for normal users", function () {
+        view.render();
+        expect(view.$el.find('.add-photos').length).toEqual(0);
+      });
+
+      it("should show a link to add photos to users who can manage photos", function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({admin: true});
+        view.render();
+        expect(view.$el.find('.add-photos').length).toEqual(1);
+      });
     });
 
     describe("when there are photos", function () {
@@ -28,6 +39,17 @@ describe("views.PhotoList", function () {
       it("should not show a link to all photos", function () {
         view.render();
         expect(view.$('.all_photos').length).toEqual(0);
+      });
+
+      it("should not show a link to add photos for normal users", function () {
+        view.render();
+        expect(view.$el.find('.add-photos').length).toEqual(0);
+      });
+
+      it("should show a link to add photos to users who can manage photos", function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({admin: true});
+        view.render();
+        expect(view.$el.find('.add-photos').length).toEqual(1);
       });
 
       it("should show time-based headers", function () {

@@ -11,6 +11,7 @@
   app.Router = Backbone.Router.extend({
     routes: {
       '': 'root',
+      'photos/new': '',
       'photos/:photoId': 'photo',
       ':tag': 'tag'
     },

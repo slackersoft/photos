@@ -17,6 +17,10 @@
     render: function () {
       this.$el.empty();
 
+      if (PhotosApp.currentUser.canManagePhotos()) {
+        this.$el.append('<a class="add-photos" href="/photos/new">Add Photos</a>');
+      }
+
       if (this.selectedTag) {
         this.$el.append('<div class="tag-info">Viewing photos tagged as "' + this.selectedTag + '". <a href="/" class="all_photos">View All</a></div>');
       }
@@ -46,8 +50,10 @@
     },
 
     usePushStateNav: function (e) {
-      e.preventDefault();
-      Backbone.history.navigate(this.$(e.currentTarget).attr('href'), { trigger: true });
+      if (!this.$(e.currentTarget).hasClass('add-photos')) {
+        e.preventDefault();
+        Backbone.history.navigate(this.$(e.currentTarget).attr('href'), { trigger: true });
+      }
     },
 
     showTag: function (tag) {
