@@ -51,7 +51,7 @@ module LetMeKnow
         it "should not re-send sent notifications" do
           expect(Mailer).to receive(:notify_bulk).with(:daily, anything) do |_, notifications|
             expect(notifications).not_to include(sent_note)
-            double(:mail, deliver!: true)
+            double(:mail, deliver_now!: true)
           end
           described_class.send_notifications(:daily)
         end

@@ -29,7 +29,7 @@ module LetMeKnow
 
     def send_notification
       return if sent?
-      Mailer.notify(self).deliver!
+      Mailer.notify(self).deliver_now!
       sent!
     end
 

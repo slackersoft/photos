@@ -13,7 +13,7 @@ module LetMeKnow
       [:immediately, :daily, :weekly]
     end
 
-    validates_inclusion_of :schedule, in: schedule_options, allow_nil: true
+    validates_inclusion_of :schedule, in: schedule_options + schedule_options.map(&:to_s), allow_nil: true
     before_validation :clear_schedule, unless: :send_notifications
     before_validation :symbolize_schedule
     validate :has_schedule, if: :send_notifications
