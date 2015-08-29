@@ -1,0 +1,14 @@
+---
+buildpack: ruby_buildpack
+services:
+  - database
+  - newrelic
+env:
+  RACK_ENV: production
+  RAILS_ENV: production
+applications:
+  - name: gnj-photos
+    command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+  - name: gnj-photos-clock
+    command: bundle exec clockwork lib/clock.rb
+    no-route: true

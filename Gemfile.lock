@@ -64,6 +64,9 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    clockwork (1.2.0)
+      activesupport
+      tzinfo
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     devise (3.4.1)
@@ -291,6 +294,7 @@ DEPENDENCIES
   aws-sdk (< 2.0)
   aws-ses
   bundler
+  clockwork
   devise
   factory_girl_rails
   fixture_builder
@@ -322,3 +326,6 @@ DEPENDENCIES
   therubyracer
   uglifier
   unicorn
+
+BUNDLED WITH
+   1.10.6
