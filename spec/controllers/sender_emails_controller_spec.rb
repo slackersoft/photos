@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SenderEmailsController do
-  let(:user) { users(:authorized) }
+  let(:user) { create(:user) }
   before do
     sign_in user
   end

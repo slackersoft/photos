@@ -11,7 +11,8 @@ describe MailChecker do
     before { Mail::TestRetriever.emails = emails.dup }
 
     context "when there are messages" do
-      let(:sender_email) { users(:authorized).email }
+      let(:user) { create(:authorized) }
+      let(:sender_email) { user.email }
       let(:email_subject) { '' }
       let(:email_body_text) { '' }
       let(:emails) do
@@ -65,13 +66,13 @@ describe MailChecker do
         end
 
         context "when the message is from an allowed sender" do
-          let(:sender_email) { users(:authorized).email }
+          let(:sender_email) { user.email }
 
           it { should change { Photo.count }.by(1) }
 
           it "should associate the photo with the sender" do
             subject.call
-            expect(Photo.last.user).to eq users(:authorized)
+            expect(Photo.last.user).to eq user
           end
 
           it "should delete the mail" do

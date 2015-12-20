@@ -173,4 +173,28 @@ describe("views.LargePhoto", function () {
       });
     });
   });
+
+  describe("editing a photo", function () {
+    describe("when the user can manage photos", function () {
+      beforeEach(function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({admin: true});
+        view.render();
+      });
+
+      it("should have a link to edit", function () {
+        expect(view.$('.edit').length).toEqual(1);
+      });
+    });
+
+    describe("when the user can't manage photos", function () {
+      beforeEach(function () {
+        PhotosApp.currentUser = new PhotosApp.models.User({authorized: true, admin: false});
+        view.render();
+      });
+
+      it("should not have a link to click", function () {
+        expect(view.$(".edit").length).toEqual(0);
+      });
+    });
+  });
 });

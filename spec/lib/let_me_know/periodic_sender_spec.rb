@@ -2,12 +2,18 @@ require 'spec_helper'
 
 module LetMeKnow
   describe PeriodicSender do
+    let(:admin) { create(:admin) }
+    let(:authorized) { create(:authorized) }
+    let(:unauthorized) { create(:user) }
+    let(:mohawk) { create(:photo) }
+    let(:mushroom) { create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png'))) }
+
     describe ".send_notifications" do
-      let!(:daily) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:admin), schedule: :daily)) }
-      let!(:weekly) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:unauthorized), schedule: :weekly)) }
+      let!(:daily) { Notification.create!(subject: mohawk, notification_preference: create(:notification_preference, owner: admin, schedule: :daily)) }
+      let!(:weekly) { Notification.create!(subject: mohawk, notification_preference: create(:notification_preference, owner: unauthorized, schedule: :weekly)) }
 
       context "when sending daily notifications" do
-        let!(:daily2) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:authorized), schedule: :daily)) }
+        let!(:daily2) { Notification.create!(subject: mohawk, notification_preference: create(:notification_preference, owner: authorized, schedule: :daily)) }
 
         it "should send all daily notifications" do
           expect do
@@ -20,7 +26,7 @@ module LetMeKnow
       end
 
       context "when sending weekly notifications" do
-        let!(:weekly2) { Notification.create!(subject: photos(:mushroom), notification_preference: create(:notification_preference, owner: users(:authorized), schedule: :weekly)) }
+        let!(:weekly2) { Notification.create!(subject: mushroom, notification_preference: create(:notification_preference, owner: authorized, schedule: :weekly)) }
 
         it "should send all weekly notifications" do
           expect do
@@ -33,7 +39,7 @@ module LetMeKnow
       end
 
       context "when one user has more than one notification" do
-        let!(:daily_double) { Notification.create!(subject: photos(:mushroom), notification_preference: daily.notification_preference) }
+        let!(:daily_double) { Notification.create!(subject: mushroom, notification_preference: daily.notification_preference) }
 
         it "should group all notifications into a single email" do
           expect do
@@ -46,7 +52,7 @@ module LetMeKnow
       end
 
       context "when a user has notifications that have already been sent" do
-        let!(:sent_note) { Notification.create!(subject: photos(:mushroom), notification_preference: create(:notification_preference, owner: users(:admin), schedule: :daily), sent_at: Time.now) }
+        let!(:sent_note) { Notification.create!(subject: mushroom, notification_preference: create(:notification_preference, owner: admin, schedule: :daily), sent_at: Time.now) }
 
         it "should not re-send sent notifications" do
           expect(Mailer).to receive(:notify_bulk).with(:daily, anything) do |_, notifications|

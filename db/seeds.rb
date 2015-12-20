@@ -7,6 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 FileUtils.rm_rf Rails.root.join('public', 'system', 'development').to_s
-Photo.create(name: 'Mushroom', image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "mushroom.png")))
+Photo.create(name: 'Mushroom', image: File.open(Rails.root.join("spec", "fixtures", "files", "mushroom.png")))
 Photo.create(name: 'Mohawk', description: 'Two feet tall', image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "mohawk.jpeg")))
 Photo.create(name: 'Sleeping', description: 'The baby sleeps', image: File.open(File.join(Rails.root, "spec", "fixtures", "files", "sleeping.jpeg")))

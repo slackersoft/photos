@@ -49,6 +49,25 @@ class PhotosController < ApplicationController
     redirect_to new_photo_path, alert: photo.valid? ? 'Saved' : "Oops: #{photo.errors.full_messages}"
   end
 
+  def edit
+    unless current_user && current_user.admin?
+      redirect_to root_path and return
+    end
+
+    @photo = Photo.find(params[:id])
+  end
+
+  def update
+    unless current_user && current_user.admin?
+      redirect_to root_path and return
+    end
+
+    photo = Photo.find(params[:id])
+    photo.update(photo_params)
+
+    redirect_to root_path
+  end
+
   private
 
   def photo_params

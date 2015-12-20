@@ -16,7 +16,7 @@ describe LetMeKnow::PreferencesController, type: :controller do
         sign_in user
         user.create_notification_preference(send_notifications: 0)
       end
-      let(:user) { users(:authorized) }
+      let!(:user) { FactoryGirl.create(:authorized) }
 
       it "should update the notification preferences" do
         create
@@ -56,7 +56,7 @@ describe LetMeKnow::PreferencesController, type: :controller do
         sign_in user
         user.create_notification_preference(send_notifications: 0)
       end
-      let(:user) { users(:authorized) }
+      let!(:user) { create(:authorized) }
 
       it "should update the notification preferences" do
         update

@@ -2,8 +2,12 @@ require 'spec_helper'
 
 describe DeDupe do
   describe "notifications" do
-    let(:user) { users(:admin) }
-    let(:photo) { photos(:mohawk) }
+    let(:user) { create(:admin) }
+    let(:photo) { create(:photo, user: user) }
+
+    before do
+      user.notification_preference.update_attributes(send_notifications: true, schedule: :daily)
+    end
 
     context "when a user has duplicate unsent notifications" do
       before do
@@ -22,7 +26,7 @@ describe DeDupe do
     end
 
     context "when a user has multiple unrelated unsent notifications" do
-      let(:other_photo) { photos(:mushroom) }
+      let(:other_photo) { create(:photo) }
       before do
         LetMeKnow::Notification.create(subject: photo, notification_preference: user.notification_preference)
         LetMeKnow::Notification.create(subject: other_photo, notification_preference: user.notification_preference)

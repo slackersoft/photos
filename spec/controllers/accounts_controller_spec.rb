@@ -14,8 +14,9 @@ describe AccountsController do
 
     context "when signed in" do
       before do
-        sign_in users(:unauthorized)
+        sign_in user
       end
+      let(:user) { FactoryGirl.create(:user) }
 
       it { should be_success }
 
@@ -27,7 +28,7 @@ describe AccountsController do
 
         it "should add the errors to the user's notification preference" do
           show
-          expect(controller.current_user.notification_preference.errors(:foo)).to eq ['bar baz']
+          expect(user.notification_preference.errors.for(:foo)).to eq ['bar baz']
         end
       end
     end
@@ -50,13 +51,14 @@ describe AccountsController do
 
     context "when signed in" do
       before do
-        sign_in users(:unauthorized)
+        sign_in user
       end
+      let(:user) { FactoryGirl.create(:user) }
 
       it "should update the user" do
         subject
         expect(response).to redirect_to(root_path)
-        expect(users(:unauthorized).reload.name).to eq 'Foo'
+        expect(user.reload.name).to eq 'Foo'
       end
     end
   end

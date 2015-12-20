@@ -10,7 +10,7 @@ module LetMeKnow
 
     describe "validations" do
       before do
-        subject.owner = users(:unauthorized)
+        subject.owner = create(:user)
         subject.send_notifications = true
       end
 

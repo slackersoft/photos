@@ -30,7 +30,9 @@ module LetMeKnow
     end
 
     describe "#send_notification" do
-      let(:notification) { Notification.create(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:admin)), sent_at: nil) }
+      let(:mohawk) { create(:photo) }
+      let(:admin) { create(:admin) }
+      let(:notification) { Notification.create(subject: mohawk, notification_preference: create(:notification_preference, owner: admin), sent_at: nil) }
 
       it "should send the notification" do
         expect { notification.send_notification }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -54,8 +56,11 @@ module LetMeKnow
     end
 
     describe ".unsent" do
-      let!(:unsent) { Notification.create(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:admin))) }
-      let!(:sent) { Notification.create(subject: photos(:mushroom), notification_preference: create(:notification_preference, owner: users(:admin)), sent_at: Time.now) }
+      let(:mohawk) { create(:photo) }
+      let(:mushroom) { create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png'))) }
+      let(:admin) { create(:admin) }
+      let!(:unsent) { Notification.create(subject: mohawk, notification_preference: create(:notification_preference, owner: admin)) }
+      let!(:sent) { Notification.create(subject: mushroom, notification_preference: create(:notification_preference, owner: admin), sent_at: Time.now) }
 
       it "should not include notifications that have been sent" do
         expect(Notification.unsent).to eq [unsent]
@@ -63,9 +68,13 @@ module LetMeKnow
     end
 
     describe ".scheduled_as" do
-      let!(:daily) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:admin), schedule: :daily)) }
-      let!(:weekly) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:unauthorized), schedule: :weekly)) }
-      let!(:immediately) { Notification.create!(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:authorized), schedule: :immediately)) }
+      let(:mohawk) { create(:photo) }
+      let(:admin) { create(:admin) }
+      let(:authorized) { create(:authorized) }
+      let(:unauthorized) { create(:user) }
+      let!(:daily) { Notification.create!(subject: mohawk, notification_preference: create(:notification_preference, owner: admin, schedule: :daily)) }
+      let!(:weekly) { Notification.create!(subject: mohawk, notification_preference: create(:notification_preference, owner: unauthorized, schedule: :weekly)) }
+      let!(:immediately) { Notification.create!(subject: mohawk, notification_preference: create(:notification_preference, owner: authorized, schedule: :immediately)) }
 
       it "should only include notifications whose recipient wants notifications on the given schedule" do
         expect(Notification.scheduled_as(:daily)).to eq [daily]
@@ -82,9 +91,13 @@ module LetMeKnow
 
     describe "lifecycle callbacks" do
       context "sending immediately" do
-        let!(:daily) { Notification.new(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:admin), schedule: :daily)) }
-        let!(:weekly) { Notification.new(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:unauthorized), schedule: :weekly)) }
-        let(:immediately) { Notification.new(subject: photos(:mohawk), notification_preference: create(:notification_preference, owner: users(:authorized), schedule: :immediately)) }
+        let(:mohawk) { create(:photo) }
+        let(:admin) { create(:admin) }
+        let(:authorized) { create(:authorized) }
+        let(:unauthorized) { create(:user) }
+        let!(:daily) { Notification.new(subject: mohawk, notification_preference: create(:notification_preference, owner: admin, schedule: :daily)) }
+        let!(:weekly) { Notification.new(subject: mohawk, notification_preference: create(:notification_preference, owner: unauthorized, schedule: :weekly)) }
+        let(:immediately) { Notification.new(subject: mohawk, notification_preference: create(:notification_preference, owner: authorized, schedule: :immediately)) }
 
         it "should only send immediately when appropriate" do
           expect { daily.save! }.to_not change { ActionMailer::Base.deliveries.count }

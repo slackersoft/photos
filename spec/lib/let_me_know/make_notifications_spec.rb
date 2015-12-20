@@ -4,10 +4,18 @@ module LetMeKnow
   describe MakeNotifications do
     describe "#after_commit" do
       subject { described_class.new.after_commit(notification_subject) }
-      let(:notification_subject) { photos(:mohawk) }
-      let(:notify1) { users(:admin).notification_preference }
-      let(:notify2) { users(:unauthorized).notification_preference }
-      let(:dont_notify) { users(:authorized).notification_preference }
+      let!(:notification_subject) { create(:photo) }
+      let!(:notify1) do
+        user = create(:user)
+        user.notification_preference.update_attributes(send_notifications: true, schedule: :daily)
+        user.notification_preference
+      end
+      let!(:notify2) do
+        user = create(:user)
+        user.notification_preference.update_attributes(send_notifications: true, schedule: :daily)
+        user.notification_preference
+      end
+      let!(:dont_notify) { create(:user).notification_preference }
 
       it "should create notifications for users that receive notifications" do
         expect { subject }.to change { Notification.count }.by(2)

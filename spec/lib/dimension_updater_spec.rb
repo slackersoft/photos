@@ -6,8 +6,8 @@ describe DimensionUpdater do
   end
 
   describe ".update_dimensions" do
-    let(:mohawk) { photos(:mohawk) }
-    let(:mushroom) { photos(:mushroom) }
+    let(:mohawk) { create(:photo) }
+    let(:mushroom) { create(:photo, name: 'mushroom', image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png'))) }
 
     before do
       reset_dimensions = {thumb_width: 0, thumb_height: 0, large_width: 0, large_height: 0}

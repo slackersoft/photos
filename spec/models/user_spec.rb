@@ -31,14 +31,15 @@ describe User do
     end
 
     context "when the user exists" do
-      let(:email) { users(:unauthorized).email }
+      let!(:user) { create(:user) }
+      let(:email) { user.email }
 
       it "should not create a user" do
         expect { subject }.not_to change { User.count }
       end
 
       it "should return the matching user" do
-        should eq users(:unauthorized)
+        should eq user
       end
     end
 
@@ -75,13 +76,20 @@ describe User do
 
   describe ".authorized" do
     it "should only return users who are authorized" do
-      expect(User.authorized).to match_array [users(:admin), users(:authorized)]
+      create(:user)
+      authorized = create(:authorized)
+      admin = create(:admin)
+      expect(User.authorized).to match_array [admin, authorized]
     end
   end
 
   describe ".with_email" do
     it "should return the user who owns the specified sender email" do
-      expect(User.with_email('still@unauthorized.com')).to eq users(:unauthorized)
+      create(:user)
+      user = create(:user, email: 'unauthorized@example.com')
+      user.sender_emails.create(address: 'still@unauthorized.com')
+
+      expect(User.with_email('still@unauthorized.com')).to eq user
     end
   end
 end

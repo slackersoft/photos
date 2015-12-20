@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.2.3'
 
 gem 'rake'
 gem 'rails'
@@ -43,7 +43,6 @@ group :development, :test do
   gem 'jshint_on_rails'
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'fixture_builder'
 end
 
 gem "heroku_san"

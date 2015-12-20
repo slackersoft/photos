@@ -50,14 +50,17 @@ describe Photo do
 
   context "scopes" do
     describe ".for_display" do
-      subject { Photo.for_display }
+      it 'should include all photos with most recent first' do
+        mushroom = create(:photo, image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png')))
+        mohawk = create(:photo)
 
-      it { should eq [photos(:mushroom), photos(:mohawk)] }
+        expect(Photo.for_display).to eq([mohawk, mushroom])
+      end
     end
   end
 
   describe "#reset_dimensions!" do
-    let(:photo) { photos(:mushroom) }
+    let(:photo) { create(:photo, image: File.new(Rails.root.join('spec', 'fixtures', 'files', 'mushroom.png'))) }
 
     before do
       photo.update_attributes(thumb_width: 0, thumb_height: 0, large_width: 0, large_height: 0)
@@ -74,7 +77,7 @@ describe Photo do
   end
 
   describe "#has_tag?" do
-    let(:photo) { photos(:mohawk) }
+    let(:photo) { create(:photo) }
     let(:tag) { 'hello' }
 
     subject { photo.has_tag?(tag) }
@@ -109,7 +112,7 @@ describe Photo do
   end
 
   describe "#add_tag" do
-    let(:photo) { photos(:mohawk) }
+    let(:photo) { create(:photo) }
     let(:tag) { 'hello' }
 
     before do
@@ -124,14 +127,14 @@ describe Photo do
       let(:tag) { Tag.create(name: 'hello').name }
 
       it "should not create another tag model" do
-        expect(Tag.count).to eq 2
+        expect(Tag.count).to eq 1
       end
 
       context "when the tag in the database has a different case" do
         let(:tag) { Tag.create(name: 'hello').name.upcase }
 
         it "should not create another tag model" do
-          expect(Tag.count).to eq 2
+          expect(Tag.count).to eq 1
         end
       end
     end
@@ -150,31 +153,30 @@ describe Photo do
   end
 
   describe "#remove_tag" do
-    let(:photo) { photos(:mushroom) }
-    let(:tag) { tags(:tag).name }
+    let(:photo) { create(:photo) }
 
     before do
-      photo.remove_tag tag
+      photo.add_tag('mario')
+      expect(photo).to have_tag('mario')
     end
 
     it "should remove the tag from the photo" do
+      photo.remove_tag 'mario'
       expect(photo.reload.tags).to eq []
       expect(Tag.count).to eq 1
     end
 
     context "when the tag associated with the photo has a different case" do
-      let(:tag) { tags(:tag).name.upcase }
-
       it "should remove the tag from the photo" do
+        photo.remove_tag 'MARIO'
         expect(photo.reload.tags).to eq []
         expect(Tag.count).to eq 1
       end
     end
 
     context "when the photo is not associated with that tag" do
-      let(:tag) { 'foo' }
-
       it "should not affect the tags for the photo" do
+        photo.remove_tag 'foo'
         expect(photo.reload.tags.map(&:name)).to eq %w(mario)
       end
     end
